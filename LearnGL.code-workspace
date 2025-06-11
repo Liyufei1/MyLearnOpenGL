@@ -1,0 +1,192 @@
+{
+	"folders": [
+		{
+			"path": "."
+		},
+		//	用于添加路径到工作区
+		// {
+		// 	"path": "E:/Work/2025/B01_DemoSR/"
+		// }
+	],
+	"settings": {
+		"files.associations": {
+			"*.py": "python",
+			"list": "cpp",
+			"set": "cpp",
+			"vector": "cpp",
+			"ostream": "cpp",
+			"array": "cpp",
+			"xstring": "cpp",
+			"xutility": "cpp",
+			"algorithm": "cpp",
+			"sstream": "cpp",
+			"type_traits": "cpp",
+			"thread": "cpp",
+			"memory": "cpp",
+			"atomic": "cpp",
+			"bit": "cpp",
+			"bitset": "cpp",
+			"cctype": "cpp",
+			"cfenv": "cpp",
+			"charconv": "cpp",
+			"chrono": "cpp",
+			"cinttypes": "cpp",
+			"clocale": "cpp",
+			"cmath": "cpp",
+			"codecvt": "cpp",
+			"compare": "cpp",
+			"complex": "cpp",
+			"concepts": "cpp",
+			"condition_variable": "cpp",
+			"coroutine": "cpp",
+			"csignal": "cpp",
+			"cstdarg": "cpp",
+			"cstddef": "cpp",
+			"cstdint": "cpp",
+			"cstdio": "cpp",
+			"cstdlib": "cpp",
+			"cstring": "cpp",
+			"ctime": "cpp",
+			"cwchar": "cpp",
+			"cwctype": "cpp",
+			"deque": "cpp",
+			"exception": "cpp",
+			"expected": "cpp",
+			"filesystem": "cpp",
+			"format": "cpp",
+			"forward_list": "cpp",
+			"fstream": "cpp",
+			"functional": "cpp",
+			"initializer_list": "cpp",
+			"iomanip": "cpp",
+			"ios": "cpp",
+			"iosfwd": "cpp",
+			"iostream": "cpp",
+			"istream": "cpp",
+			"iterator": "cpp",
+			"limits": "cpp",
+			"locale": "cpp",
+			"map": "cpp",
+			"mutex": "cpp",
+			"new": "cpp",
+			"numeric": "cpp",
+			"optional": "cpp",
+			"queue": "cpp",
+			"random": "cpp",
+			"ratio": "cpp",
+			"shared_mutex": "cpp",
+			"span": "cpp",
+			"stack": "cpp",
+			"stdexcept": "cpp",
+			"stop_token": "cpp",
+			"streambuf": "cpp",
+			"string": "cpp",
+			"system_error": "cpp",
+			"tuple": "cpp",
+			"typeinfo": "cpp",
+			"unordered_map": "cpp",
+			"unordered_set": "cpp",
+			"utility": "cpp",
+			"variant": "cpp",
+			"xfacet": "cpp",
+			"xhash": "cpp",
+			"xiosbase": "cpp",
+			"xlocale": "cpp",
+			"xlocbuf": "cpp",
+			"xlocinfo": "cpp",
+			"xlocmes": "cpp",
+			"xlocmon": "cpp",
+			"xlocnum": "cpp",
+			"xloctime": "cpp",
+			"xmemory": "cpp",
+			"xtr1common": "cpp",
+			"xtree": "cpp"
+		},
+		"editor.indentSize": 4,
+		"lldb-dap.executable-path": "C:\\Users\\wsqsy\\Downloads\\LLVM-19.1.2-Windows-X64\\bin\\lldb-dap.exe",
+		"editor.guides.bracketPairs": true,
+		"editor.bracketPairColorization.independentColorPoolPerBracketType": true,
+		"editor.tabSize": 4,
+		"cSpell.words": [
+			//  添加单词
+			"LYF"
+		],
+		"python-envs.defaultEnvManager": "ms-python.python:conda",
+		"python-envs.defaultPackageManager": "ms-python.python:conda",
+		"python-envs.pythonProjects": [],
+		"editor.language.brackets": [
+			[
+				"(",
+				")"
+			],
+			[
+				"[",
+				"]"
+			],
+			[
+				"{",
+				"}"
+			],
+			[
+				"<",
+				">"
+			],
+		],
+		"editor.language.colorizedBracketPairs": [
+			[
+				"(",
+				")"
+			],
+			[
+				"[",
+				"]"
+			],
+			[
+				"{",
+				"}"
+			],
+			[
+				"<",
+				">"
+			],
+		],
+		"terminal.integrated.suggest.enabled": true,
+	},
+	"launch": {
+		// Use IntelliSense to learn about possible attributes.
+		// Hover to view descriptions of existing attributes.
+		// For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+		"version": "0.2.0",
+		"configurations": [
+			{
+				"name": "Run",
+				"type": "cppvsdbg",
+				"request": "launch",
+				"program": "E:/study/LearnOpenGL/build/app.exe",
+				"args": [
+					// "--path"
+				],
+				// "cwd": "${fileDirname}",
+				"preLaunchTask": "scons"
+			},
+		]
+	},
+	"tasks": {
+		"version": "2.0.0",
+		"tasks": [
+			{
+				"label": "clean up",
+				"type": "shell",
+				"command": "scons -c"
+			},
+			{
+				"label": "scons",
+				"type": "shell",
+				"command": "scons -Q",
+				"dependsOn":[
+					"clean up"
+				]
+			}
+		]
+	}
+}

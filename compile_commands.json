@@ -1,0 +1,26 @@
+[
+    {
+        "command": "cl /Fobuild\\main.obj /c src\\main.cpp /TP /nologo /Iinclude",
+        "directory": "E:\\study\\LearnOpenGL",
+        "file": "src\\main.cpp",
+        "output": "build\\main.obj"
+    },
+    {
+        "command": "cl /Fobuild\\Window\\Window.obj /c src\\Window\\Window.cpp /TP /nologo /Iinclude",
+        "directory": "E:\\study\\LearnOpenGL",
+        "file": "src\\Window\\Window.cpp",
+        "output": "build\\Window\\Window.obj"
+    },
+    {
+        "command": "cl /Foinclude\\Common\\CommonFunLib.obj /c include\\Common\\CommonFunLib.cpp /TP /nologo /Iinclude",
+        "directory": "E:\\study\\LearnOpenGL",
+        "file": "include\\Common\\CommonFunLib.cpp",
+        "output": "include\\Common\\CommonFunLib.obj"
+    },
+    {
+        "command": "cl /Foinclude\\glad\\glad.obj /c include\\glad\\glad.c /nologo /Iinclude",
+        "directory": "E:\\study\\LearnOpenGL",
+        "file": "include\\glad\\glad.c",
+        "output": "include\\glad\\glad.obj"
+    }
+]
