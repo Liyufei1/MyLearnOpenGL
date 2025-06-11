@@ -4,6 +4,8 @@
 #include "glfw/glfw3.h"
 #include <string>
 #include <functional>
+#include <map>
+
 
 class Window
 {
@@ -18,12 +20,10 @@ public:
     void Close();
     void SetRunFunction(std::function<void()> InFunction);
 private:
-    void processInput(GLFWwindow *window);
-
     GLFWwindow* mWindow = nullptr;
     int SCR_WIDTH = 1920;
     int SCR_HEIGHT = 1080;
     std::string mTitle = "OpenGL";
     std::function<void()> mRunFunction;
-
 };
+

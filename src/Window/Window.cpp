@@ -1,5 +1,6 @@
 #include "Window.h"
 #include "Common/CommonFunLib.h"
+#include "InputEvent.h"
 
 void Window::Init(){
     glfwInit();
@@ -35,10 +36,7 @@ void Window::Run(){
     }
     while (!glfwWindowShouldClose(mWindow))
 	{
-		processInput(mWindow);
-
-		glClearColor(0.9f,0.9f,0.8f,1.0f);
-        glClear(GL_COLOR_BUFFER_BIT);
+		InputEvents(mWindow);
 
         mRunFunction();
 
@@ -51,12 +49,7 @@ void Window::Close(){
     glfwTerminate();
 }
 
-void Window::processInput(GLFWwindow *window)
-{
-    if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS){
-        glfwSetWindowShouldClose(window, true);
-    }
-}
+
 
 void Window::SetRunFunction(std::function<void()> InFunction){
     mRunFunction = InFunction;

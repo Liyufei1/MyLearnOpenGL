@@ -9,7 +9,8 @@ int main()
 
 
 	window.SetRunFunction([](){
-		// lyf::Print("run~!~~");
+		glClearColor(0.9f,0.9f,0.8f,1.0f);
+        glClear(GL_COLOR_BUFFER_BIT);
 	});
 	window.Run();
 
