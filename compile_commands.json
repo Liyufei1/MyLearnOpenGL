@@ -1,18 +1,30 @@
 [
     {
-        "command": "cl /Fobuild\\main.obj /c src\\main.cpp /TP /nologo /Iinclude",
+        "command": "cl /Fobuild\\main.obj /c src\\main.cpp /TP /std:c++17 /nologo /Iinclude",
         "directory": "E:\\study\\LearnOpenGL",
         "file": "src\\main.cpp",
         "output": "build\\main.obj"
     },
     {
-        "command": "cl /Fobuild\\Window\\Window.obj /c src\\Window\\Window.cpp /TP /nologo /Iinclude",
+        "command": "cl /Fobuild\\Shader\\ShaderBase.obj /c src\\Shader\\ShaderBase.cpp /TP /std:c++17 /nologo /Iinclude",
+        "directory": "E:\\study\\LearnOpenGL",
+        "file": "src\\Shader\\ShaderBase.cpp",
+        "output": "build\\Shader\\ShaderBase.obj"
+    },
+    {
+        "command": "cl /Fobuild\\Shader\\ShaderProgram.obj /c src\\Shader\\ShaderProgram.cpp /TP /std:c++17 /nologo /Iinclude",
+        "directory": "E:\\study\\LearnOpenGL",
+        "file": "src\\Shader\\ShaderProgram.cpp",
+        "output": "build\\Shader\\ShaderProgram.obj"
+    },
+    {
+        "command": "cl /Fobuild\\Window\\Window.obj /c src\\Window\\Window.cpp /TP /std:c++17 /nologo /Iinclude",
         "directory": "E:\\study\\LearnOpenGL",
         "file": "src\\Window\\Window.cpp",
         "output": "build\\Window\\Window.obj"
     },
     {
-        "command": "cl /Foinclude\\Common\\CommonFunLib.obj /c include\\Common\\CommonFunLib.cpp /TP /nologo /Iinclude",
+        "command": "cl /Foinclude\\Common\\CommonFunLib.obj /c include\\Common\\CommonFunLib.cpp /TP /std:c++17 /nologo /Iinclude",
         "directory": "E:\\study\\LearnOpenGL",
         "file": "include\\Common\\CommonFunLib.cpp",
         "output": "include\\Common\\CommonFunLib.obj"
