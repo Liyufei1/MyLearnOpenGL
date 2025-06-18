@@ -22,13 +22,14 @@ void ShaderBase::InitShader(GLuint& Shader,GLenum type,const char* SourcePath){
     }
 
     std::stringstream buffer{};
+    
     buffer << file.rdbuf();
     file.close();
 
     // lyf::PrintError("Successfully opened file: " + std::string(SourcePath));
     // lyf::PrintError(buffer.str());
-
-    const char * TempSource = buffer.str().c_str();
+    TempSourceBuffer = buffer.str();
+    const char * TempSource = TempSourceBuffer.c_str();
 
     Shader = glCreateShader(type);
     glShaderSource(Shader, 1, &TempSource, NULL);
@@ -38,6 +39,7 @@ void ShaderBase::InitShader(GLuint& Shader,GLenum type,const char* SourcePath){
     if (!Success) {
         char infoLog[512];
         glGetShaderInfoLog(Shader, 512, NULL, infoLog);
+        lyf::PrintError("Init Shader Failed : " + std::string(TempSource));
         lyf::PrintError(infoLog);
     }else {
         lyf::Print("Init Shader Success : " + std::string(SourcePath));

@@ -3,6 +3,7 @@
 #include <string>
 
 
+
 class ShaderBase{
 public:
     ShaderBase() = delete;
@@ -20,4 +21,5 @@ private:
     GLuint VertexShader = 0;
     GLuint FragmentShader = 0;
     bool bIsInit = false;
+    std::string TempSourceBuffer{};
 };
