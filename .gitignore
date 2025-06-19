@@ -2,3 +2,5 @@
 .cache
 build
 .obj
+include/glad/glad.obj
+include/Common/CommonFunLib.obj
