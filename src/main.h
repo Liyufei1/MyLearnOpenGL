@@ -3,6 +3,9 @@
 #include "Window/Window.h"
 #include "Shader/ShaderBase.h"
 #include "Shader/ShaderProgram.h"
+#include "glm/ext/vector_float3.hpp"
+#include "glm/glm.hpp"
+#include <string>
 
 int main()
 {
