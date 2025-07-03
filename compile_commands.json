@@ -6,6 +6,12 @@
         "output": "build\\main.obj"
     },
     {
+        "command": "cl /Fobuild\\Mesh\\Mesh.obj /c src\\Mesh\\Mesh.cpp /TP /std:c++17 /nologo /Iinclude",
+        "directory": "E:\\study\\LearnOpenGL",
+        "file": "src\\Mesh\\Mesh.cpp",
+        "output": "build\\Mesh\\Mesh.obj"
+    },
+    {
         "command": "cl /Fobuild\\Shader\\ShaderBase.obj /c src\\Shader\\ShaderBase.cpp /TP /std:c++17 /nologo /Iinclude",
         "directory": "E:\\study\\LearnOpenGL",
         "file": "src\\Shader\\ShaderBase.cpp",

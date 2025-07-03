@@ -4,11 +4,19 @@
 #include "Shader/ShaderBase.h"
 #include "Shader/ShaderProgram.h"
 #include "glm/ext/vector_float3.hpp"
+#include "glm/fwd.hpp"
 #include "glm/glm.hpp"
 #include <string>
 
+void TestFun(){
+	glm::mat4 AA{1.0f};
+	lyf::PrintError(lyf::ToString(AA));
+}
+
 int main()
 {
+	TestFun();
+
 	Window window(1920, 1080, "OpenGL");
 	window.Init();
 
@@ -17,6 +25,10 @@ int main()
 
 	ShaderProgram ShaderProgramTest(ShaderTest);
 
+	GLint maxAttribs = 0;
+	glGetIntegerv(GL_MAX_VERTEX_ATTRIBS, &maxAttribs);
+	std::cout << "Max vertex attributes: " << maxAttribs << std::endl;
+	
 	
  	float vertices[] = {
         // first triangle

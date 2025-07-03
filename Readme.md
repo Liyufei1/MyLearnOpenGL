@@ -23,6 +23,7 @@ Window类封装了glfw的创建窗口，管理输入，以及注册主体函数�
 2. `Run()`  运行主函数。
 3. `Close()` 关闭窗口。
 4. `std::function<void()> InFunction` 主函数。
+5. 在`Window/InputEvent.h` 中定义了输入事件，可进行输入事件的添加。
 
 示例：
 ```cpp
