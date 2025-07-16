@@ -8,5 +8,5 @@ namespace lyf {
     void PrintWarning(std::string log);
     void PrintError(std::string log);
 
-
+    void QueryMaxAttribVetxCount();
 }

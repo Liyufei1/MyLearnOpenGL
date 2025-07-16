@@ -7,7 +7,7 @@ env.Append(CXXFLAGS=["/std:c++17"])
 env.VariantDir('build', 'src', duplicate=0)
 
 # # 添加 include/ 目录为头文件路径
-env.Append(CPPPATH=['include'])
+env.Append(CPPPATH=['include','src','Art'])
 
 #添加依赖库
 env.Append(LIBPATH=['lib'])

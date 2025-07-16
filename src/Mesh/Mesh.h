@@ -1,8 +1,17 @@
 #pragma once
 #include "glm/ext/vector_float3.hpp"
-#include "glm/glm.hpp"
+#include "glm/fwd.hpp"
+#include <cstddef>
+#include <memory>
 #include <vector>
 #include "glad/glad.h"
+
+#include "MeshManager.h"
+#include "Shader/ShaderProgram.h"
+
+
+
+class Texture2D;
 
 struct VertexAttrib{
     glm::vec3 vertex{ 0.0f,0.0f,0.0f };
@@ -25,19 +34,54 @@ public:
     std::vector<glm::vec2> uvs1;        // 纹理坐标1
     std::vector<glm::vec2> uvs2;        // 纹理坐标2
 
+    std::vector<glm::int32>indexs;  //顶点索引
+
+public:
     std::vector<VertexAttrib> GetData() const;
 };
 
-class StaticMesh{
+
+class StaticMesh : public std::enable_shared_from_this<StaticMesh>
+{
+    friend class MeshManager;
+    static const int MaxTextureCount = 16;
 public:
-    StaticMesh(){}
-    ~StaticMesh(){}
-private:
-    void BindGlVertexAttribPointer(GLuint VAO ,GLuint VBO) const;
-    void CalculModelMatrix();
+    ~StaticMesh();
+    static std::shared_ptr<StaticMesh> CreateMesh(){
+        std::shared_ptr<StaticMesh> mesh(new StaticMesh);
+        MeshManager::GetInstance().AddMesh(mesh);
+        return mesh;
+    }
+    ShaderProgram& GetShaderProgram(){  return mShaderProgram; }
+
+    void SetTexture(int index, std::shared_ptr<Texture2D> texture);
+
     MeshBatch mMeshBatch;
+private:
+    StaticMesh(){
+        mTextures.resize(MaxTextureCount,nullptr);
+    }
+
+    void Draw();
+
+    void BindGlVertexAttribPointer();
+
+    void BindTexture();
+
+    void CalculModelMatrix();
+
+
+    ShaderProgram mShaderProgram{"src/Shader/PhoneShader/PhoneVertex.glsl",
+						"src/Shader/PhoneShader/PhoneFragment.glsl"};
+
     glm::vec3 mPosition{};
     glm::vec3 mScale{};
     glm::vec3 mRotation{};
     glm::mat4 mModelMatrix{1.0f};
+
+    GLuint mVAO = 0;
+    GLuint mVBO = 0;
+    GLuint mEBO = 0;
+    
+    std::vector<std::shared_ptr<Texture2D>> mTextures;
 };

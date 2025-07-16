@@ -1,6 +1,7 @@
 #include "ShaderProgram.h"
 #include <string>
 #include "Common/CommonFunLib.h"
+#include "ShaderBase.h"
 
 
 ShaderProgram::ShaderProgram(const ShaderBase& Shader){
@@ -21,6 +22,11 @@ ShaderProgram::ShaderProgram(const ShaderBase& Shader){
         }
         bIsInit = true;
 }
+ShaderProgram::ShaderProgram(const char* vertexPath, const char* fragmentPath)
+:ShaderProgram(ShaderBase(vertexPath, fragmentPath))
+{
+}
+
 ShaderProgram::~ShaderProgram(){ 
     glDeleteProgram(Program); 
 }
@@ -32,3 +38,9 @@ void ShaderProgram::Use() const{
     }
     glUseProgram(Program);
 }
+
+// void ShaderProgram::SetParamater(const char* name, int value)const{
+//     GLuint location = glGetUniformLocation(Program, name);
+//     Use();
+//     glUniform1i(location, value);
+// }
