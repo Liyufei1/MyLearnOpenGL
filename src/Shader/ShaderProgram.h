@@ -2,6 +2,8 @@
 #include "Common/CommonFunLib.h"
 #include "glad/glad.h"
 #include "ShaderBase.h"
+#include "glm/fwd.hpp"
+#include "glm/gtc/type_ptr.hpp"
 #include <sstream>
 
 class ShaderProgram{
@@ -19,10 +21,12 @@ public:
             glUniform1i(location, value);
         }else if constexpr (std::is_same_v<T, float>) {
             glUniform1f(location, value);
+        }else if constexpr (std::is_same_v<T, glm::mat4>) {
+            glUniformMatrix4fv(location,1,false,glm::value_ptr(value));
         }else {
             std::ostringstream oss;
             oss << "ShaderPara type error :: " << typeid(T).name();
-            lyf::PrintError(oss.str());    
+            LOG(LOGERROR,oss.str());    
         }
     }
 private:

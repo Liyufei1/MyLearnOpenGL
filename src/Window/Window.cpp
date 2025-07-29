@@ -7,12 +7,12 @@ void Window::Init(){
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-
+	
     mWindow = glfwCreateWindow(SCR_WIDTH, SCR_HEIGHT, mTitle.c_str(), NULL, NULL);
 
 	if (mWindow == NULL)
 	{
-        lyf::PrintError("Failed to create GLFW window");
+        LOG(LOGERROR,"Failed to create GLFW window");
 		glfwTerminate();
 		return;
 	}
@@ -24,19 +24,22 @@ void Window::Init(){
 
     if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
 	{
-        lyf::PrintError( "Failed to initialize GLAD");
+        LOG(LOGERROR, "Failed to initialize GLAD");
 		return;
 	}
+
+	glfwSetInputMode(mWindow, GLFW_CURSOR, GLFW_CURSOR_DISABLED);  
+	glfwSetCursorPosCallback(mWindow,Input::MouseEvents);
 }
 
 void Window::Run(){
     if(!mRunFunction){
-        lyf::PrintError("Run function is not set");
+        LOG(LOGERROR,"Run function is not set");
         return;
     }
     while (!glfwWindowShouldClose(mWindow))
 	{
-		InputEvents(mWindow);
+		Input::InputEvents(mWindow);
 
         mRunFunction();
 

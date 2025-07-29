@@ -7,8 +7,10 @@ layout (location = 4) in vec2 aUV;
 layout (location = 5) in vec2 aUV1;
 layout (location = 6) in vec2 aUV2;
 
-uniform mat4 modelMatrix;
-uniform mat4 viewMatrix;
+uniform mat4 uModelMatrix;
+uniform mat4 uViewMatrix;
+uniform mat4 uProjectionMatrix;
+uniform mat4 uViewProjectionMatrix;
 
 uniform float Test;
 
@@ -21,5 +23,8 @@ void main(){
     // TestColor = vec4(aColor,1.0f);
 
     TexCoord = aUV;
-    gl_Position = vec4(aPos.x, aPos.y, aPos.z, 1.0);
+    // gl_Position = uViewProjectionMatrix * uModelMatrix * vec4(aPos, 1.0f);
+    gl_Position = uModelMatrix * vec4(aPos, 1.0f);
+    
+    // gl_Position = vec4(aPos, 1.0f);
 }

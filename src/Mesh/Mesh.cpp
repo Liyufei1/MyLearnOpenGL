@@ -1,5 +1,6 @@
-#include "Mesh.h"
+﻿#include "Mesh.h"
 #include "Common/CommonFunLib.h"
+#include "Common/CommonFunLib.hpp"
 #include "glm/gtc/matrix_transform.hpp"
 #include "Texture/Texture2D.h"
 #include <string>
@@ -14,13 +15,20 @@ StaticMesh::~StaticMesh(){
     glDeleteBuffers(1,&mEBO);
 }
 
+glm::mat4 StaticMesh::GetModelMatrix(){
+    CalculModelMatrix();
+    return mModelMatrix;
+}
+
 void StaticMesh::SetTexture(int index, std::shared_ptr<Texture2D> texture){
     if (index < 0 || index >= MaxTextureCount) {
-        lyf::PrintError(std::string("StaticMesh::SetTexture index out of range") + std::to_string(index));
+        LOG(LOGERROR,std::string("StaticMesh::SetTexture index out of range") + std::to_string(index));
         return;
     }
     mTextures[index] = texture;
 }
+
+
 
 std::vector<VertexAttrib> MeshBatch::GetData() const{
     std::vector<VertexAttrib> data;
@@ -61,7 +69,7 @@ void StaticMesh::Draw(){
             glBindTexture(GL_TEXTURE_2D, mTextures[i]->GetTextureID());
         }
     }
-
+    // LOG(LOGTEMP);
     glBindVertexArray(mVAO);
     glDrawElements(GL_TRIANGLES, mMeshBatch.indexs.size(), GL_UNSIGNED_INT, 0);
 }
@@ -111,15 +119,17 @@ void StaticMesh::BindTexture(){
 
 
 void StaticMesh::CalculModelMatrix(){
-    // 1. 缩放
-    lyf::PrintError(lyf::ToString(mModelMatrix));
-    mModelMatrix = glm::scale(mModelMatrix, mScale);
+    if (bIsTransformDirty) {
+        bIsTransformDirty = false;
+    
+        mModelMatrix = glm::mat4(1.0f);
 
-    // 2. 旋转（假设 mRotation 是欧拉角，按顺序绕 X, Y, Z 轴旋转）
-    mModelMatrix = glm::rotate(mModelMatrix, glm::radians(mRotation.x), glm::vec3(1.0f, 0.0f, 0.0f)); // 绕 X 轴旋转
-    mModelMatrix = glm::rotate(mModelMatrix, glm::radians(mRotation.y), glm::vec3(0.0f, 1.0f, 0.0f)); // 绕 Y 轴旋转
-    mModelMatrix = glm::rotate(mModelMatrix, glm::radians(mRotation.z), glm::vec3(0.0f, 0.0f, 1.0f)); // 绕 Z 轴旋转
+        mModelMatrix = glm::translate(mModelMatrix, mPosition);
 
-    // 3. 平移
-    mModelMatrix = glm::translate(mModelMatrix, mPosition);
+        mModelMatrix = glm::scale(mModelMatrix, mScale);
+
+        mModelMatrix = glm::rotate(mModelMatrix, glm::radians(mRotation.x), glm::vec3(1.0f, 0.0f, 0.0f)); // 绕 X 轴旋转
+        mModelMatrix = glm::rotate(mModelMatrix, glm::radians(mRotation.y), glm::vec3(0.0f, 1.0f, 0.0f)); // 绕 Y 轴旋转
+        mModelMatrix = glm::rotate(mModelMatrix, glm::radians(mRotation.z), glm::vec3(0.0f, 0.0f, 1.0f)); // 绕 Z 轴旋转  
+    }
 }

@@ -1,7 +1,7 @@
 env = Environment(tools=['default', 'compilation_db'])
 env.CompilationDatabase('./compile_commands.json')
 
-env.Append(CXXFLAGS=["/std:c++17"])
+env.Append(CXXFLAGS=["/std:c++17" , "/EHsc"])
 
 # # 让 SCons 使用 src/ 作为源码来源，build/ 作为构建输出
 env.VariantDir('build', 'src', duplicate=0)

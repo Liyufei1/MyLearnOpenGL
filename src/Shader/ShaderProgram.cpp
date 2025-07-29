@@ -7,7 +7,7 @@
 ShaderProgram::ShaderProgram(const ShaderBase& Shader){
         Program = glCreateProgram();
         if (!Shader.IsInit()) {
-            lyf::PrintError("Init ShaderProgram Failed : Shader Not Init");
+            LOG(LOGERROR,"Init ShaderProgram Failed : Shader Not Init");
             return;
         };
         glAttachShader(Program, Shader.GetVertexShader());
@@ -18,7 +18,7 @@ ShaderProgram::ShaderProgram(const ShaderBase& Shader){
         if(!Success) {
             GLchar  infoLog[512];
             glGetProgramInfoLog(Program, 512, NULL, infoLog);
-            lyf::PrintError("Init ShaderProgram Failed : Link Failed" + std::string(infoLog));
+            LOG(LOGERROR,"Init ShaderProgram Failed : Link Failed" + std::string(infoLog));
         }
         bIsInit = true;
 }
@@ -33,9 +33,10 @@ ShaderProgram::~ShaderProgram(){
 
 void ShaderProgram::Use() const{
     if (!bIsInit) {
-        lyf::PrintError("ShaderProgram is not init");
+        LOG(LOGERROR,"ShaderProgram is not init");
         return;
     }
+    // LOG(LOGERROR,"Use ShaderProgram :: ", Program);
     glUseProgram(Program);
 }
 

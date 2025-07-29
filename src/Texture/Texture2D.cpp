@@ -8,10 +8,10 @@ Texture2D::Texture2D(const char* path){
     stbi_set_flip_vertically_on_load(true);
     mData = stbi_load(path, &mWidth, &mHeight, &mChannels, 0);
     if (!mData){
-        lyf::PrintError(std::string("Texture2D::LoadTexture2D failed to load texture at path: ") + path);
+        LOG(LOGERROR,std::string("Texture2D::LoadTexture2D failed to load texture at path: ") + path);
     }else {
-        lyf::Print(std::string("Texture2D::Load success :: " )+ path);
-        lyf::Print(std::string("Length: ") + std::to_string(mWidth) + " Height: " + std::to_string(mHeight) + " Channels: " + std::to_string(mChannels)  + " ID: " + std::to_string(mTextureID));
+        LOG(LOGTEMP,std::string("Texture2D::Load success :: " )+ path);
+        LOG(LOGTEMP,std::string("Length: ") + std::to_string(mWidth) + " Height: " + std::to_string(mHeight) + " Channels: " + std::to_string(mChannels)  + " ID: " + std::to_string(mTextureID));
     }
 }
 Texture2D::~Texture2D(){
@@ -38,5 +38,5 @@ void Texture2D::Init(){
         break;
     }
     glGenerateMipmap(GL_TEXTURE_2D);
-    lyf::Print(std::string("Texture2D::Init success " )+ " ID: " + std::to_string(mTextureID));
+    LOG(LOGTEMP,std::string("Texture2D::Init success " )+ " ID: " + std::to_string(mTextureID));
 }

@@ -16,10 +16,14 @@ namespace lyf {
 
     inline std::string ToString(const glm::mat4& value){
         std::stringstream ss;
-        ss << value[0][0] << " " << value[0][1] << " " << value[0][2] << " " << value[0][3] << std::endl;
-        ss << value[1][0] << " " << value[1][1] << " " << value[1][2] << " " << value[1][3] << std::endl;
-        ss << value[2][0] << " " << value[2][1] << " " << value[2][2] << " " << value[2][3] << std::endl;
-        ss << value[3][0] << " " << value[3][1] << " " << value[3][2] << " " << value[3][3] << std::endl;
+        ss << std::endl;
+        for (int row = 0 ; row < 4 ; row++) {
+            ss << "|";
+            for (int col = 0 ; col < 4 ; col++) {
+                ss << value[col][row] << " ";
+            }
+            ss << "|" <<std::endl;
+        }
         return ss.str();
     }
 

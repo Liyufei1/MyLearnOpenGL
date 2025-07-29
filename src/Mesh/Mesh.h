@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include "glm/ext/vector_float3.hpp"
 #include "glm/fwd.hpp"
 #include <cstddef>
@@ -26,7 +26,7 @@ struct VertexAttrib{
 struct MeshBatch {
 public:
     // 顶点属性
-    std::vector<glm::vec3> verties;  // 顶点位置./
+    std::vector<glm::vec3> verties;  // 顶点位置
     std::vector<glm::vec3> tangents;   // 切线
     std::vector<glm::vec3> normals;    // 法线
     std::vector<glm::vec3> colors;     // 颜色
@@ -52,9 +52,18 @@ public:
         MeshManager::GetInstance().AddMesh(mesh);
         return mesh;
     }
+    
     ShaderProgram& GetShaderProgram(){  return mShaderProgram; }
 
+    glm::mat4 GetModelMatrix();
+    glm::vec3 GetLocation(){return mPosition;}
+    glm::vec3 GetRotation(){return mRotation;}
+    glm::vec3 GetScale(){return mScale;}
+
     void SetTexture(int index, std::shared_ptr<Texture2D> texture);
+    void SetLocation(glm::vec3 location){mPosition = location; bIsTransformDirty = true;}
+    void SetRotation(glm::vec3 rotation){mRotation = rotation; bIsTransformDirty = true;}
+    void SetScale(glm::vec3 scale){mScale = scale; bIsTransformDirty = true;}
 
     MeshBatch mMeshBatch;
 private:
@@ -70,14 +79,14 @@ private:
 
     void CalculModelMatrix();
 
-
     ShaderProgram mShaderProgram{"src/Shader/PhoneShader/PhoneVertex.glsl",
 						"src/Shader/PhoneShader/PhoneFragment.glsl"};
 
-    glm::vec3 mPosition{};
-    glm::vec3 mScale{};
-    glm::vec3 mRotation{};
+    glm::vec3 mPosition{0.0f,0.0f,0.0f};
+    glm::vec3 mScale{1.0f,1.0f,1.0f};
+    glm::vec3 mRotation{0.0f,0.0f,0.0f};
     glm::mat4 mModelMatrix{1.0f};
+    bool bIsTransformDirty = true;
 
     GLuint mVAO = 0;
     GLuint mVBO = 0;

@@ -1,5 +1,6 @@
 #pragma once
 #include "Common/CommonFunLib.h"
+#include "Common/CommonFunLib.hpp"
 #include <iostream>
 #include <ostream>
 #include <sstream>
@@ -36,7 +37,7 @@ void mycout(Args ...args){
 }
 
 void TestFun(){
-	lyf::Print("TestFun::Begin !");
+	LOG(LOGTEMP,"TestFun::Begin !");
 
 	// glm::mat4 AA{1.0f};
 	// glm::vec3 Scale{1.0,2.0,2.0};
@@ -46,8 +47,8 @@ void TestFun(){
 
     foo1(1.0f, 2.0f,1,"asdasd");
 
-    std::cout << sum(1,2,3,4,5,6,7,8,9,10) << std::endl;
-    std::cout << "sum1 :: " <<sum1(std::string("321"),"asd","123") << std::endl;
-    mycout(1,2,3,4,5,6,7,8,9,10);
-	lyf::Print("TestFun::End !");	
+    // std::cout << sum(1,2,3,4,5,6,7,8,9,10) << std::endl;
+    // std::cout << "sum1 :: " <<sum1(std::string("321"),"asd","123") << std::endl;
+    // mycout(1,2,3,4,5,6,7,8,9,10);
+	LOG(LOGTEMP,"TestFun::End !");	
 }

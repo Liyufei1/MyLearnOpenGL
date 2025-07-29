@@ -17,7 +17,7 @@ ShaderBase::~ShaderBase(){
 void ShaderBase::InitShader(GLuint& Shader,GLenum type,const char* SourcePath){
     std::ifstream file(SourcePath);
     if (!file.is_open()) {
-        lyf::PrintError("Failed to open file: " + std::string(SourcePath));
+        LOG(LOGERROR,"Failed to open file: " + std::string(SourcePath));
         return;
     }
 
@@ -26,8 +26,8 @@ void ShaderBase::InitShader(GLuint& Shader,GLenum type,const char* SourcePath){
     buffer << file.rdbuf();
     file.close();
 
-    // lyf::PrintError("Successfully opened file: " + std::string(SourcePath));
-    // lyf::PrintError(buffer.str());
+    // LOG(LOGERROR,"Successfully opened file: " + std::string(SourcePath));
+    // LOG(LOGERROR,buffer.str());
     TempSourceBuffer = buffer.str();
     const char * TempSource = TempSourceBuffer.c_str();
 
@@ -39,10 +39,10 @@ void ShaderBase::InitShader(GLuint& Shader,GLenum type,const char* SourcePath){
     if (!Success) {
         char infoLog[512];
         glGetShaderInfoLog(Shader, 512, NULL, infoLog);
-        lyf::PrintError("Init Shader Failed : " + std::string(TempSource));
-        lyf::PrintError(infoLog);
+        LOG(LOGTEMP,"Init Shader Failed : " + std::string(TempSource));
+        LOG(LOGTEMP,infoLog);
     }else {
-        lyf::Print("Init Shader Success : " + std::string(SourcePath));
+        LOG(LOGTEMP,"Init Shader Success : " + std::string(SourcePath));
         bIsInit = true;
     }
 }

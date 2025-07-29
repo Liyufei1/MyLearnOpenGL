@@ -1,10 +1,12 @@
-#include "MeshManager.h"
+﻿#include "MeshManager.h"
+#include "Common/CommonFunLib.hpp"
 #include "Mesh.h"
 #include <algorithm>
 
 void MeshManager::Render(){
     for (auto mesh : m_meshes) {
         mesh->Draw();
+        // LOG(LOGTEMP,"Render Mesh");
     }
 }
 void MeshManager::BindData(){
