@@ -23,8 +23,8 @@ void main(){
     // TestColor = vec4(aColor,1.0f);
 
     TexCoord = aUV;
-    // gl_Position = uViewProjectionMatrix * uModelMatrix * vec4(aPos, 1.0f);
-    gl_Position = uModelMatrix * vec4(aPos, 1.0f);
+    gl_Position = uViewProjectionMatrix * uModelMatrix * vec4(aPos, 1.0f);
+    // gl_Position = uModelMatrix * vec4(aPos, 1.0f);
     
     // gl_Position = vec4(aPos, 1.0f);
 }

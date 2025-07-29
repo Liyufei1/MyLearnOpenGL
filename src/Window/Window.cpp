@@ -28,8 +28,12 @@ void Window::Init(){
 		return;
 	}
 
+	
 	glfwSetInputMode(mWindow, GLFW_CURSOR, GLFW_CURSOR_DISABLED);  
 	glfwSetCursorPosCallback(mWindow,Input::MouseEvents);
+	
+	//depth test
+	glEnable(GL_DEPTH_TEST);
 }
 
 void Window::Run(){

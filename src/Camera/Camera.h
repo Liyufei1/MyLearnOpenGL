@@ -24,7 +24,7 @@ private:
     float mCameraSpeed = 1.0f;
     const float CAMERA_DEFAULT_SPEED = -0.05f;
     glm::vec3 mPosition{0.0f,0.0f,3.0f};
-    glm::vec3 mRotation{0.0f,10.0f,0.0f};
+    glm::vec3 mRotation{0.0f,-90.0f,0.0f};
     glm::vec3 mCameraFwd{0.0f,1.0f,0.0f};
     glm::vec3 mCameraRight{1.0f,0.0f,0.0f};
     glm::vec3 mCameraUp{0.0f,0.0f,1.0f};
