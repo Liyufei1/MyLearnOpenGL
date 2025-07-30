@@ -1,6 +1,7 @@
 #include "Window.h"
 #include "Common/CommonFunLib.h"
 #include "InputEvent.h"
+#include "glfw/glfw3.h"
 
 void Window::Init(){
     glfwInit();
@@ -31,6 +32,7 @@ void Window::Init(){
 	
 	glfwSetInputMode(mWindow, GLFW_CURSOR, GLFW_CURSOR_DISABLED);  
 	glfwSetCursorPosCallback(mWindow,Input::MouseEvents);
+	glfwSetScrollCallback(mWindow, Input::ScrollEvents);
 	
 	//depth test
 	glEnable(GL_DEPTH_TEST);

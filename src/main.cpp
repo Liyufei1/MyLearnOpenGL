@@ -38,10 +38,11 @@ std::shared_ptr<StaticMesh> TestMesh0(){
 std::shared_ptr<StaticMesh> BoxMesh(){
 	std::shared_ptr<StaticMesh> SM = StaticMesh::CreateMesh();
 
-	SM->mMeshBatch.verties = { 	glm::vec3(-0.5f, -0.5f, -0.5f), //底面
-								glm::vec3(-0.5f, 0.5f, -0.5f), 
+	SM->mMeshBatch.verties = { 	 
+								glm::vec3(-0.5f, 0.5f, -0.5f), //底面
 								glm::vec3(0.5f, 0.5f, -0.5f), 
 								glm::vec3(0.5f, -0.5f, -0.5f), 
+								glm::vec3(-0.5f, -0.5f, -0.5f),
 
 								glm::vec3(-0.5f, -0.5f, -0.5f), //正面
 								glm::vec3(0.5f, -0.5f, -0.5f), 
@@ -58,10 +59,10 @@ std::shared_ptr<StaticMesh> BoxMesh(){
 								glm::vec3(-0.5f, 0.5f, 0.5f), 
 								glm::vec3(0.5f, 0.5f, 0.5f),
 
-								glm::vec3(-0.5f, -0.5f, -0.5f), //左面
+								glm::vec3(-0.5f, 0.5f, -0.5f),//左面
+								glm::vec3(-0.5f, -0.5f, -0.5f), 
 								glm::vec3(-0.5f, -0.5f, 0.5f), 
 								glm::vec3(-0.5f, 0.5f, 0.5f), 
-								glm::vec3(-0.5f, 0.5f, -0.5f),
 
 								glm::vec3(-0.5f, -0.5f, 0.5f), //顶面
 								glm::vec3(0.5f, -0.5f, 0.5f), 

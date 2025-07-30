@@ -30,7 +30,7 @@ int main()
 
 	TestFun();
 
-	Camera camera;
+	// Camera camera;
 
 	std::shared_ptr<StaticMesh> SM = TestMesh0();
 	SM->SetLocation(glm::vec3(0.5,0,0));
@@ -56,14 +56,6 @@ int main()
 		
 		SM->SetRotation(glm::vec3{0.0f,0.0f,90 * std::fmod(glfwGetTime(),4)});
 		SM->GetShaderProgram().SetParamater<float>("Test", (sin(glfwGetTime())));
-		SM->GetShaderProgram().SetParamater<glm::mat4>("uModelMatrix", SM->GetModelMatrix());
-		SM->GetShaderProgram().SetParamater<glm::mat4>("uViewProjectionMatrix", camera.GetViewProjectionMMatrix());
-
-		SM1->GetShaderProgram().SetParamater<glm::mat4>("uModelMatrix", SM1->GetModelMatrix());
-		SM1->GetShaderProgram().SetParamater<glm::mat4>("uViewProjectionMatrix", camera.GetViewProjectionMMatrix());
-
-		SM2->GetShaderProgram().SetParamater<glm::mat4>("uModelMatrix", SM2->GetModelMatrix());
-		SM2->GetShaderProgram().SetParamater<glm::mat4>("uViewProjectionMatrix", camera.GetViewProjectionMMatrix());
 
 
 		// LOG(LOGTEMP,lyf::ToString(SM->GetModelMatrix()));

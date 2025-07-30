@@ -61,7 +61,6 @@ std::vector<VertexAttrib> MeshBatch::GetData() const{
     return data;
 }
 void StaticMesh::Draw(){
-    mShaderProgram.Use();
     for (int i = 0; i < MaxTextureCount; i++) {
         if(mTextures[i]){
             mShaderProgram.SetParamater((std::string("uTexture") + std::to_string(i)).c_str(), i);

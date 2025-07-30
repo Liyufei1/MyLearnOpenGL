@@ -15,6 +15,7 @@
 Camera::Camera(){
 	Input::RegisterInputEvent(std::bind(&Camera::InputEvents,this,std::placeholders::_1));
 	Input::RegisterMouseEvent(std::bind(&Camera::MouseEvent,this,std::placeholders::_1,std::placeholders::_2,std::placeholders::_3));
+    Input::RegisterScrollEvent(std::bind(&Camera::ScrollEvent,this,std::placeholders::_1,std::placeholders::_2,std::placeholders::_3));
 }
 void Camera::InputEvents(GLFWwindow * pWindows){
 
@@ -68,6 +69,18 @@ void Camera::MouseEvent(GLFWwindow* window,double xpos,double ypos){
     }
     // mRotation.z += xpos * CAMERA_DEFAULT_SPEED;
     // mRotation.y += ypos * CAMERA_DEFAULT_SPEED;
+}
+
+void Camera::ScrollEvent(GLFWwindow* window,double xpos,double ypos){
+    if(mFov >= 1.0f && mFov <= 45.0f){
+        mFov -= ypos;
+        mProjectionMatrix = glm::perspective(glm::radians(mFov), (float)SCREEN_WIDTH / SCREEN_HEIGHT, 0.1f , 100.0f);
+        bIsDirty = true;
+    }
+    if(mFov <= 1.0f)
+        mFov = 1.0f;
+    if(mFov >= 45.0f)
+        mFov = 45.0f;
 }
 
 

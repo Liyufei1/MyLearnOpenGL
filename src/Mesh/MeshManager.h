@@ -4,6 +4,7 @@
 #include <vector>
 
 class StaticMesh;
+class ICamera;
 
 class MeshManager
 {
@@ -16,16 +17,15 @@ public:
     MeshManager(const MeshManager&) = delete;
     MeshManager& operator=(const MeshManager&) = delete;
 
-    // void Init();
-    // void Update();
     void Render();
+
     void BindData();
-    // void Release();
 
     void AddMesh(std::shared_ptr<StaticMesh> mesh);
     void RemoveMesh(std::shared_ptr<StaticMesh> mesh);
 private:
-    MeshManager() = default;
+    MeshManager();
     ~MeshManager() = default;
+    std::shared_ptr<ICamera> mCamera = nullptr;
     std::unordered_set<std::shared_ptr<StaticMesh>> m_meshes;
 };

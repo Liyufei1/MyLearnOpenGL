@@ -8,28 +8,34 @@
 #include "glm/gtc/matrix_transform.hpp"
 #include "glm/trigonometric.hpp"
 
+class ICamera{
+    public:
+        virtual glm::mat4 GetViewProjectionMMatrix() = 0;
+};
 
-class Camera
+
+class Camera :public ICamera
 {
 public:
     Camera();
-
-    
-    glm::mat4 GetViewProjectionMMatrix();
+    virtual glm::mat4 GetViewProjectionMMatrix() override;
 
 private:
     void InputEvents(GLFWwindow * pWindow);
     void MouseEvent(GLFWwindow* window,double xpos,double ypos);
+    void ScrollEvent(GLFWwindow* window,double xpos,double ypos);
 
-    float mCameraSpeed = 1.0f;
     const float CAMERA_DEFAULT_SPEED = -0.05f;
+    float mCameraSpeed = 1.0f;
+
+    float mFov = 45.0f;
     glm::vec3 mPosition{0.0f,0.0f,3.0f};
     glm::vec3 mRotation{0.0f,-90.0f,0.0f};
     glm::vec3 mCameraFwd{0.0f,1.0f,0.0f};
     glm::vec3 mCameraRight{1.0f,0.0f,0.0f};
     glm::vec3 mCameraUp{0.0f,0.0f,1.0f};
     glm::mat4 mViewMatrix;
-    glm::mat4 mProjectionMatrix{glm::perspective(glm::radians(45.0f), (float)SCREEN_WIDTH / SCREEN_HEIGHT, 0.1f , 100.0f)};
+    glm::mat4 mProjectionMatrix{glm::perspective(glm::radians(mFov), (float)SCREEN_WIDTH / SCREEN_HEIGHT, 0.1f , 100.0f)};
     glm::mat4 mViewProjectionMatrix ;
     bool bIsDirty = true;
 
