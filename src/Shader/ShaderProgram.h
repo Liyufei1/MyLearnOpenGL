@@ -13,6 +13,9 @@ public:
     ShaderProgram(const char* vertexPath, const char* fragmentPath);
     ~ShaderProgram();
     void Use() const;
+
+    static std::shared_ptr<ShaderProgram> GetDefaultShaderProgram();
+
     template<typename T>
     void SetParamater(const char* name, T value) const{
         GLuint location = glGetUniformLocation(Program, name);
@@ -32,4 +35,6 @@ public:
 private:
     GLuint Program = 0;
     bool bIsInit = false;
+
+    static std::shared_ptr<ShaderProgram> DefaultShaderProgram;
 };

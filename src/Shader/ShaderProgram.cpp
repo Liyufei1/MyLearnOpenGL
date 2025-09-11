@@ -3,6 +3,13 @@
 #include "Common/CommonFunLib.h"
 #include "ShaderBase.h"
 
+std::shared_ptr<ShaderProgram> ShaderProgram::DefaultShaderProgram = nullptr;
+std::shared_ptr<ShaderProgram> ShaderProgram::GetDefaultShaderProgram(){
+    if (DefaultShaderProgram == nullptr) {
+        DefaultShaderProgram = std::make_shared<ShaderProgram>("src/Shader/BaseShader/BaseVertex.glsl","src/Shader/BaseShader/BaseFragment.glsl");
+    }
+    return DefaultShaderProgram;
+}
 
 ShaderProgram::ShaderProgram(const ShaderBase& Shader){
         Program = glCreateProgram();

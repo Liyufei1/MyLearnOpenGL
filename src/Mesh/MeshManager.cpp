@@ -6,9 +6,9 @@
 void MeshManager::Render(){
     for (auto mesh : m_meshes) {
         //设置模型矩阵
-        mesh->GetShaderProgram().SetParamater<glm::mat4>("uModelMatrix", mesh->GetModelMatrix());
+        mesh->GetShaderProgram()->SetParamater<glm::mat4>("uModelMatrix", mesh->GetModelMatrix());
         //设置视图投影矩阵
-		mesh->GetShaderProgram().SetParamater<glm::mat4>("uViewProjectionMatrix", mCamera->GetViewProjectionMMatrix());
+		mesh->GetShaderProgram()->SetParamater<glm::mat4>("uViewProjectionMatrix", mCamera->GetViewProjectionMMatrix());
         //绘制
         mesh->Draw();
     }

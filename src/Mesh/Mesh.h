@@ -4,6 +4,7 @@
 #include <cstddef>
 #include <memory>
 #include <vector>
+
 #include "glad/glad.h"
 
 #include "MeshManager.h"
@@ -49,16 +50,18 @@ public:
     ~StaticMesh();
     static std::shared_ptr<StaticMesh> CreateMesh(){
         std::shared_ptr<StaticMesh> mesh(new StaticMesh);
+        mesh->SetShaderProgram(ShaderProgram::GetDefaultShaderProgram());
         MeshManager::GetInstance().AddMesh(mesh);
         return mesh;
     }
     
-    ShaderProgram& GetShaderProgram(){  return mShaderProgram; }
+    std::shared_ptr<ShaderProgram> GetShaderProgram(){  return mShaderProgram; }
 
     glm::mat4 GetModelMatrix();
     glm::vec3 GetLocation(){return mPosition;}
     glm::vec3 GetRotation(){return mRotation;}
     glm::vec3 GetScale(){return mScale;}
+    void SetShaderProgram(std::shared_ptr<ShaderProgram> pSP){ mShaderProgram = pSP; }
 
     void SetTexture(int index, std::shared_ptr<Texture2D> texture);
     void SetLocation(glm::vec3 location){mPosition = location; bIsTransformDirty = true;}
@@ -79,8 +82,7 @@ private:
 
     void CalculModelMatrix();
 
-    ShaderProgram mShaderProgram{"src/Shader/PhoneShader/PhoneVertex.glsl",
-						"src/Shader/PhoneShader/PhoneFragment.glsl"};
+    std::shared_ptr<ShaderProgram> mShaderProgram = nullptr;
 
     glm::vec3 mPosition{0.0f,0.0f,0.0f};
     glm::vec3 mScale{1.0f,1.0f,1.0f};

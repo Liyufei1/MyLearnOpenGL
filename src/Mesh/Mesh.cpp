@@ -63,7 +63,7 @@ std::vector<VertexAttrib> MeshBatch::GetData() const{
 void StaticMesh::Draw(){
     for (int i = 0; i < MaxTextureCount; i++) {
         if(mTextures[i]){
-            mShaderProgram.SetParamater((std::string("uTexture") + std::to_string(i)).c_str(), i);
+            mShaderProgram->SetParamater((std::string("uTexture") + std::to_string(i)).c_str(), i);
             glActiveTexture(GL_TEXTURE0 + i);
             glBindTexture(GL_TEXTURE_2D, mTextures[i]->GetTextureID());
         }
