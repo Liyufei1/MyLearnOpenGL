@@ -118,6 +118,7 @@ int main()
 	// SM1->SetShaderProgram(BaseShaderPrograme);
 	SM1->SetLocation(glm::vec3(-0.5,0,-0.9f));
 	SM1->SetScale(glm::vec3(0.5,0.5,0.5));
+	SM1->GetShaderProgram()->SetParamater("uBaseColor", glm::vec4(0.5,0.5,0.5,1));
 
 	std::shared_ptr<StaticMesh> SM2 = BoxMesh();
 	SM2->SetShaderProgram(PhoneShaderPrograme);
