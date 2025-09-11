@@ -26,6 +26,8 @@ public:
             glUniform1f(location, value);
         }else if constexpr (std::is_same_v<T, glm::mat4>) {
             glUniformMatrix4fv(location,1,false,glm::value_ptr(value));
+        }else if constexpr (std::is_same_v<T, glm::vec4>) {
+            glUniform4fv(location,1,glm::value_ptr(value));
         }else {
             std::ostringstream oss;
             oss << "ShaderPara type error :: " << typeid(T).name();
