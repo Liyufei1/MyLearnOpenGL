@@ -5,3 +5,4 @@ build
 include/glad/glad.obj
 include/Common/CommonFunLib.obj
 compile_commands.json
+compile_commands.json
