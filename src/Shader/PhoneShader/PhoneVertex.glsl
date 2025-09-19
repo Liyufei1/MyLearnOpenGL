@@ -21,7 +21,7 @@ out vec3 oNormal;
 out vec3 oFragPos;
 
 void main(){
-    oNormal = vec3(uModelMatrix * vec4(aNormal,1.0f));
+    oNormal = mat3(transpose(inverse(uModelMatrix))) * aNormal;
     oFragPos = vec3(uModelMatrix * vec4(aPos, 1.0f));
 
     // TestColor = vec4(Test,0.0f,0.0f, 1.0f);

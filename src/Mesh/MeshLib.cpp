@@ -35,11 +35,6 @@ std::shared_ptr<StaticMesh> TestMesh0(){
 		glm::vec2(0.45f, 0.5f)
 	};
 	
-
-	std::shared_ptr<Texture2D> Texture0{new Texture2D("E:/study/LearnOpenGL/Art/Texture/T_WoodBox.jpg")};
-	std::shared_ptr<Texture2D> Texture1{new Texture2D("E:/study/LearnOpenGL/Art/Texture/T_face.png")};
-	SM->SetTexture(0,Texture0);
-	SM->SetTexture(1,Texture1);
     return SM;
 }
 std::shared_ptr<StaticMesh> BoxMesh(){
