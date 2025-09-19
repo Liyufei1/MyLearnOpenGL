@@ -14,11 +14,11 @@ std::shared_ptr<StaticMesh> TestMesh0(){
 	};
 	SM->mMeshBatch.indexs = { 0,1,2,1,3,4};
 	SM->mMeshBatch.normals = { 
-		glm::vec3(1.0f, 0.0f, 1.0f),
-		glm::vec3(1.0f, 0.0f, 1.0f),
-		glm::vec3(1.0f, 0.0f, 1.0f),
-		glm::vec3(1.0f, 0.0f, 1.0f),
-		glm::vec3(1.0f, 0.0f, 1.0f),
+		glm::vec3(0.0f, 0.0f, 1.0f),
+		glm::vec3(0.0f, 0.0f, 1.0f),
+		glm::vec3(0.0f, 0.0f, 1.0f),
+		glm::vec3(0.0f, 0.0f, 1.0f),
+		glm::vec3(0.0f, 0.0f, 1.0f),
 	};
 	SM->mMeshBatch.colors = { 
 		glm::vec3(1.0f, 0.0f, 0.0f),
@@ -126,5 +126,36 @@ std::shared_ptr<StaticMesh> BoxMesh(){
 	SM->mMeshBatch.normals.push_back(glm::vec3(0.0f, 0.0f, 1.0f));
 
 	
+    return SM;
+}
+
+
+std::shared_ptr<StaticMesh> PlaneMesh(){
+    std::shared_ptr<StaticMesh> SM = StaticMesh::CreateMesh();
+
+	SM->mMeshBatch.verties = { 	glm::vec3(-1.0f, -1.0f, 0.0f), 
+								glm::vec3(1.0f, -1.0f, 0.0f), 
+								glm::vec3(1.0f, 1.0f, 0.0f),
+								glm::vec3(-1.0f, 1.0f, 0.0f)
+	};
+	SM->mMeshBatch.indexs = { 0,1,2,2,3,0};
+	SM->mMeshBatch.normals = { 
+		glm::vec3(0.0f, 0.0f, 1.0f),
+		glm::vec3(0.0f, 0.0f, 1.0f),
+		glm::vec3(0.0f, 0.0f, 1.0f),
+		glm::vec3(0.0f, 0.0f, 1.0f)
+	};
+	SM->mMeshBatch.colors = { 
+		glm::vec3(1.0f, 0.0f, 0.0f),
+		glm::vec3(0.0f, 1.0f, 0.0f),
+		glm::vec3(0.0f, 0.0f, 1.0f),
+		glm::vec3(1.0f, 1.0f, 0.0f)
+	};
+	SM->mMeshBatch.uvs = { 
+		glm::vec2(0.0f, 0.0f), 
+		glm::vec2(1.0f, 0.0f), 
+		glm::vec2(1.0f, 1.0f), 
+		glm::vec2(0.0f, 1.0f)
+	};
     return SM;
 }

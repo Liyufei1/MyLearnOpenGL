@@ -5,6 +5,7 @@
 #include "glm/ext/matrix_clip_space.hpp"
 #include "glm/ext/matrix_float4x4.hpp"
 #include "glm/ext/matrix_projection.hpp"
+#include "glm/ext/vector_float3.hpp"
 #include "glm/glm.hpp"
 #include "glm/gtc/matrix_transform.hpp"
 #include "glm/trigonometric.hpp"
@@ -15,6 +16,7 @@
 class ICamera{
     public:
         virtual glm::mat4 GetViewProjectionMMatrix() = 0;
+        virtual glm::vec3 GetPosition() = 0;
 };
 
 
@@ -23,6 +25,7 @@ class Camera :public ICamera
 public:
     Camera();
     virtual glm::mat4 GetViewProjectionMMatrix() override;
+    glm::vec3 GetPosition()override {return mPosition;}
 
 private:
     void InputEvents(GLFWwindow * pWindow);

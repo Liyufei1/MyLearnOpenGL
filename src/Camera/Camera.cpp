@@ -113,7 +113,7 @@ glm::mat4 Camera::GetViewProjectionMMatrix(){
 
 void Light::UpdateLight(){
     for (auto it : UsedShaderPrograms) {
-        it->SetParamater("lightColor",mColor);
-        it->SetParamater("lightPos",mPosition);
+        it->SetParamater("uLightColor",mColor);
+        it->SetParamater("uLightPos",mPosition);
     }
 }

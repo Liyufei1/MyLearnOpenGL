@@ -21,8 +21,8 @@ int main()
 	//着色器程序
 	std::shared_ptr<ShaderProgram> PhoneShaderPrograme = std::make_shared<ShaderProgram>("src/Shader/PhoneShader/PhoneVertex.glsl","src/Shader/PhoneShader/PhoneFragment.glsl");
 	std::shared_ptr<ShaderProgram> BaseShaderPrograme = ShaderProgram::GetDefaultShaderProgram();
-	PhoneShaderPrograme->SetParamater("lightColor", glm::vec3(1,1,1));
-	PhoneShaderPrograme->SetParamater("lightPos", glm::vec3(0,0,5));
+	PhoneShaderPrograme->SetParamater("uLightColor", glm::vec3(1,1,1));
+	PhoneShaderPrograme->SetParamater("uLightPos", glm::vec3(0,0,5));
 
 	//Light光照
 	Light Light1;
@@ -54,6 +54,11 @@ int main()
 	SM2->SetScale(glm::vec3(0.5,0.5,0.5));
 	SM2->SetTexture(0,texture0);
 	SM2->SetTexture(1,texture1);
+
+	std::shared_ptr<StaticMesh> SM3 = PlaneMesh();
+	SM3->SetShaderProgram(PhoneShaderPrograme);
+	SM3->SetLocation(glm::vec3(0.0f,0.0f,-0.5f));
+	SM3->SetScale(glm::vec3(2.5,2.5,2.5));
 
 
 	MeshManager::GetInstance().BindData();

@@ -2,6 +2,7 @@
 #include "Common/CommonFunLib.hpp"
 #include "Mesh.h"
 #include "Camera/Camera.h"
+#include "glm/ext/vector_float3.hpp"
 
 void MeshManager::Render(){
     for (auto mesh : m_meshes) {
@@ -9,6 +10,7 @@ void MeshManager::Render(){
         mesh->GetShaderProgram()->SetParamater<glm::mat4>("uModelMatrix", mesh->GetModelMatrix());
         //设置视图投影矩阵
 		mesh->GetShaderProgram()->SetParamater<glm::mat4>("uViewProjectionMatrix", mCamera->GetViewProjectionMMatrix());
+		mesh->GetShaderProgram()->SetParamater<glm::vec3>("uCameraPos", mCamera->GetPosition());
         //绘制
         mesh->Draw();
     }

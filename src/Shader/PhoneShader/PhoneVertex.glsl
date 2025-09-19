@@ -21,7 +21,7 @@ out vec3 oNormal;
 out vec3 oFragPos;
 
 void main(){
-    oNormal = aNormal;
+    oNormal = vec3(uModelMatrix * vec4(aNormal,1.0f));
     oFragPos = vec3(uModelMatrix * vec4(aPos, 1.0f));
 
     // TestColor = vec4(Test,0.0f,0.0f, 1.0f);
@@ -30,7 +30,4 @@ void main(){
 
     TexCoord = aUV;
     gl_Position = uViewProjectionMatrix * uModelMatrix * vec4(aPos, 1.0f);
-    // gl_Position = uModelMatrix * vec4(aPos, 1.0f);
-    
-    // gl_Position = vec4(aPos, 1.0f);
 }
