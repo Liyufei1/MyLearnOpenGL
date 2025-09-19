@@ -96,3 +96,4 @@ private:
     
     std::vector<std::shared_ptr<Texture2D>> mTextures;
 };
+

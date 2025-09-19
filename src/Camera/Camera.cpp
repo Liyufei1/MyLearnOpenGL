@@ -1,4 +1,5 @@
 #include "Camera.h"
+
 #include "Common/CommonFunLib.h"
 #include "Common/CommonFunLib.hpp"
 #include "glfw/glfw3.h"
@@ -9,6 +10,7 @@
 #include <algorithm>
 #include <cmath>
 #include <functional>
+
 
 
 
@@ -106,4 +108,12 @@ glm::mat4 Camera::GetViewProjectionMMatrix(){
     mViewProjectionMatrix = mProjectionMatrix * mViewMatrix;
 
     return mViewProjectionMatrix;
+}
+
+
+void Light::UpdateLight(){
+    for (auto it : UsedShaderPrograms) {
+        it->SetParamater("lightColor",mColor);
+        it->SetParamater("lightPos",mPosition);
+    }
 }

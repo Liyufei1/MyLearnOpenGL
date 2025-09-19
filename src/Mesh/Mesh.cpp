@@ -54,7 +54,7 @@ std::vector<VertexAttrib> MeshBatch::GetData() const{
         if (i < uvsCount) Tempuvs = uvs[i];
         if (i < uvs1Count) Tempuvs1 = uvs1[i];
         if (i < uvs2Count) Tempuvs2 = uvs2[i];
-        data.push_back(VertexAttrib{Tempverties,Tempnormals,Temptangents,Tempcolors,Tempuvs,Tempuvs1,Tempuvs2});
+        data.push_back(VertexAttrib{Tempverties,Temptangents,Tempnormals,Tempcolors,Tempuvs,Tempuvs1,Tempuvs2});
     }
     
 
@@ -132,3 +132,5 @@ void StaticMesh::CalculModelMatrix(){
         mModelMatrix = glm::rotate(mModelMatrix, glm::radians(mRotation.z), glm::vec3(0.0f, 0.0f, 1.0f)); // 绕 Z 轴旋转  
     }
 }
+
+

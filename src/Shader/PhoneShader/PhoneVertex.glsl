@@ -11,16 +11,22 @@ uniform mat4 uModelMatrix;
 uniform mat4 uViewMatrix;
 uniform mat4 uProjectionMatrix;
 uniform mat4 uViewProjectionMatrix;
-
 uniform float Test;
 
 
 out vec4 TestColor;
 out vec2 TexCoord;
 
+out vec3 oNormal;
+out vec3 oFragPos;
+
 void main(){
-    TestColor = vec4(Test,0.0f,0.0f, 1.0f);
-    // TestColor = vec4(aColor,1.0f);
+    oNormal = aNormal;
+    oFragPos = vec3(uModelMatrix * vec4(aPos, 1.0f));
+
+    // TestColor = vec4(Test,0.0f,0.0f, 1.0f);
+    // TestColor = vec4(aNormal,1.0f);
+    // TestColor = vec4(aTangent,1.0f);
 
     TexCoord = aUV;
     gl_Position = uViewProjectionMatrix * uModelMatrix * vec4(aPos, 1.0f);

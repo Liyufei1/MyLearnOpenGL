@@ -1,5 +1,6 @@
 #pragma once
 #include "Common/Config.h"
+#include "Shader/ShaderProgram.h"
 #include "glfw/glfw3.h"
 #include "glm/ext/matrix_clip_space.hpp"
 #include "glm/ext/matrix_float4x4.hpp"
@@ -7,6 +8,9 @@
 #include "glm/glm.hpp"
 #include "glm/gtc/matrix_transform.hpp"
 #include "glm/trigonometric.hpp"
+#include <memory>
+
+// #include "Shader/ShaderProgram.h"
 
 class ICamera{
     public:
@@ -44,4 +48,25 @@ private:
     double LastY = 0.0f;
     bool bIsFirstMove = true;
     
+};
+
+
+// class ShaderProgram;
+
+class Light{
+    glm::vec3 mPosition{0.0f, 0.0f, 0.0f};
+    glm::vec3 mColor{1.0f, 1.0f, 1.0f};
+
+    std::vector<std::shared_ptr<ShaderProgram>>  UsedShaderPrograms;
+public:
+    void UpdateLight();
+    void SetLightColor(glm::vec3 color){mColor = color;}
+    void SetLightPosition(glm::vec3 Position){mPosition = Position;}
+    void AddShaderProgram(std::shared_ptr<ShaderProgram> pShaderProgram){UsedShaderPrograms.push_back(pShaderProgram);}
+
+    glm::vec3 GetLightColor(){return mColor;}
+    glm::vec3 GetLightPosition(){return mPosition;}
+
+    
+    // void SetLight(std::shared_ptr<ShaderProgram> pShaderProgram);
 };
