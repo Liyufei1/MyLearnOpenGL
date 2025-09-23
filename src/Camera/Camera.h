@@ -57,18 +57,25 @@ private:
 // class ShaderProgram;
 
 class Light{
+    bool  bIsDirty = true;
+
     glm::vec3 mPosition{0.0f, 0.0f, 0.0f};
-    glm::vec3 mColor{1.0f, 1.0f, 1.0f};
+    glm::vec3 mAmbient{0.1f, 0.1f, 0.1f};
+    glm::vec3 mDiffuse{0.8f, 0.8f, 0.8f};
+    glm::vec3 mSpecular{1.0f, 1.0f, 1.0f};
 
     std::vector<std::shared_ptr<ShaderProgram>>  UsedShaderPrograms;
 public:
     void UpdateLight();
-    void SetLightColor(glm::vec3 color){mColor = color;}
-    void SetLightPosition(glm::vec3 Position){mPosition = Position;}
     void AddShaderProgram(std::shared_ptr<ShaderProgram> pShaderProgram){UsedShaderPrograms.push_back(pShaderProgram);}
-
-    glm::vec3 GetLightColor(){return mColor;}
+    void SetPosition(glm::vec3 Position){bIsDirty = true ; mPosition = Position;}
+    void SetAmbient(glm::vec3 pAmbient){bIsDirty = true ; mAmbient = pAmbient;}
+    void SetDiffuse(glm::vec3 pDiffuse){bIsDirty = true ; mDiffuse= pDiffuse;}
+    void SetSpecular(glm::vec3 pSpecular){bIsDirty = true ; mSpecular= pSpecular;}
     glm::vec3 GetLightPosition(){return mPosition;}
+    glm::vec3 GetAmbient(){return mAmbient;}
+    glm::vec3 GetDiffuse(){return mDiffuse;}
+    glm::vec3 GetSpecular(){return mSpecular;}
 
     
     // void SetLight(std::shared_ptr<ShaderProgram> pShaderProgram);
