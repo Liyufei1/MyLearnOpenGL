@@ -7,6 +7,8 @@ layout (location = 4) in vec2 aUV;
 layout (location = 5) in vec2 aUV1;
 layout (location = 6) in vec2 aUV2;
 
+
+
 uniform mat4 uModelMatrix;
 uniform mat4 uViewMatrix;
 uniform mat4 uProjectionMatrix;
