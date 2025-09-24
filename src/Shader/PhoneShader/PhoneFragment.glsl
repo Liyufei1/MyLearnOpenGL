@@ -14,14 +14,13 @@ struct Light {
 };
 
 struct Material {
-    vec3 ambient;
-    vec3 diffuse;
+    sampler2D diffuse;
     vec3 specular;
     float shininess;
 }; 
 
 uniform Light uLight = Light(vec3(0.0f, 0.0f, 0.0f), vec3(0.1f, 0.1f, 0.1f), vec3(0.5f, 0.5f, 0.5f), vec3(0.5f, 0.5f, 0.5f));
-uniform Material uMaterial = Material(vec3(0.5f, 0.5f, 0.5f), vec3(0.5f, 0.5f, 0.5f), vec3(0.5f, 0.5f, 0.5f), 32.0f);
+uniform Material uMaterial;
 uniform vec3 uCameraPos;
 
 uniform sampler2D uTexture0;
@@ -35,14 +34,12 @@ void main()
     vec3 viewDir = normalize(uCameraPos - oFragPos);
     vec3 reflectDir = reflect(-lightDir, normal);  
 
-    vec3 ambient = uLight.ambient * texture(uTexture0, TexCoord.xy).rgb ;
-    vec3 diffuse = max(dot(normal, lightDir), 0.0f) * uLight.diffuse * texture(uTexture0, TexCoord.xy).rgb;
-    vec3 specular = pow(max(dot(reflectDir,viewDir), 0.0f), 32.0f) * uLight.specular * texture(uTexture0, TexCoord.xy).rgb;
+    vec3 ambient = uLight.ambient * texture(uMaterial.diffuse, TexCoord.xy).rgb ;
+    vec3 diffuse = max(dot(normal, lightDir), 0.0f) * uLight.diffuse * texture(uMaterial.diffuse, TexCoord.xy).rgb;
+    vec3 specular = pow(max(dot(reflectDir,viewDir), 0.0f), uMaterial.shininess) * uLight.specular * uMaterial.specular;
 
 
-    FragColor = vec4(normal, 1.0f);
-    // FragColor = mix(texture(uTexture0, TexCoord.xy),texture(uTexture1, TexCoord.xy),0.8f);
-    // FragColor = vec4((ambient + diffuse + specular) * uLightColor * texture(uTexture0, TexCoord.xy).rgb, 1.0f);
+    // FragColor = vec4(normal, 1.0f);
     FragColor = vec4((ambient + diffuse + specular), 1.0f);
 
 } 

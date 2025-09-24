@@ -6,11 +6,12 @@
 
 void MeshManager::Render(){
     for (auto mesh : m_meshes) {
+        mesh->GetMaterial()->Use();
         //设置模型矩阵
-        mesh->GetShaderProgram()->SetParamater<glm::mat4>("uModelMatrix", mesh->GetModelMatrix());
+        mesh->GetMaterial()->GetShaderProgram()->SetParamater<glm::mat4>("uModelMatrix", mesh->GetModelMatrix());
         //设置视图投影矩阵
-		mesh->GetShaderProgram()->SetParamater<glm::mat4>("uViewProjectionMatrix", mCamera->GetViewProjectionMMatrix());
-		mesh->GetShaderProgram()->SetParamater<glm::vec3>("uCameraPos", mCamera->GetPosition());
+		mesh->GetMaterial()->GetShaderProgram()->SetParamater<glm::mat4>("uViewProjectionMatrix", mCamera->GetViewProjectionMMatrix());
+		mesh->GetMaterial()->GetShaderProgram()->SetParamater<glm::vec3>("uCameraPos", mCamera->GetPosition());
         //绘制
         mesh->Draw();
     }

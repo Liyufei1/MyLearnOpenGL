@@ -20,13 +20,7 @@ glm::mat4 StaticMesh::GetModelMatrix(){
     return mModelMatrix;
 }
 
-void StaticMesh::SetTexture(int index, std::shared_ptr<Texture2D> texture){
-    if (index < 0 || index >= MaxTextureCount) {
-        LOG(LOGERROR,std::string("StaticMesh::SetTexture index out of range") + std::to_string(index));
-        return;
-    }
-    mTextures[index] = texture;
-}
+
 
 
 
@@ -61,14 +55,9 @@ std::vector<VertexAttrib> MeshBatch::GetData() const{
     return data;
 }
 void StaticMesh::Draw(){
-    for (int i = 0; i < MaxTextureCount; i++) {
-        if(mTextures[i]){
-            mShaderProgram->SetParamater((std::string("uTexture") + std::to_string(i)).c_str(), i);
-            glActiveTexture(GL_TEXTURE0 + i);
-            glBindTexture(GL_TEXTURE_2D, mTextures[i]->GetTextureID());
-        }
-    }
+   
     // LOG(LOGTEMP);
+   
     glBindVertexArray(mVAO);
     glDrawElements(GL_TRIANGLES, mMeshBatch.indexs.size(), GL_UNSIGNED_INT, 0);
 }
@@ -103,18 +92,12 @@ void StaticMesh::BindGlVertexAttribPointer(){
     glVertexAttribPointer(6,2, GL_FLOAT, GL_FALSE, sizeof(VertexAttrib), (void*)offsetof(VertexAttrib, uv2s));
     glEnableVertexAttribArray(6);
     
-    BindTexture();
 
     glBindBuffer(GL_ARRAY_BUFFER, 0);
     glBindVertexArray(0);
 }
 
-void StaticMesh::BindTexture(){
-    for (int i = 0; i < MaxTextureCount; i++) {
-        if(mTextures[i])
-            mTextures[i]->Init();
-    }
-}
+
 
 
 void StaticMesh::CalculModelMatrix(){

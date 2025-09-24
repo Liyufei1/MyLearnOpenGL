@@ -13,9 +13,11 @@ Texture2D::Texture2D(const char* path){
         LOG(LOGTEMP,std::string("Texture2D::Load success :: " )+ path);
         LOG(LOGTEMP,std::string("Length: ") + std::to_string(mWidth) + " Height: " + std::to_string(mHeight) + " Channels: " + std::to_string(mChannels)  + " ID: " + std::to_string(mTextureID));
     }
+    Init();
 }
 Texture2D::~Texture2D(){
     stbi_image_free(mData);
+    glDeleteTextures(1, &mTextureID);
 }
 
 

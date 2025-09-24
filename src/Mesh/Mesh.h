@@ -8,7 +8,7 @@
 #include "glad/glad.h"
 
 #include "MeshManager.h"
-#include "Shader/ShaderProgram.h"
+#include "Shader/Material.h"
 
 
 
@@ -50,39 +50,33 @@ public:
     ~StaticMesh();
     static std::shared_ptr<StaticMesh> CreateMesh(){
         std::shared_ptr<StaticMesh> mesh(new StaticMesh);
-        mesh->SetShaderProgram(ShaderProgram::GetDefaultShaderProgram());
+        mesh->SetMaterial(Material::GetDefaultMaterial());
         MeshManager::GetInstance().AddMesh(mesh);
         return mesh;
     }
     
-    std::shared_ptr<ShaderProgram> GetShaderProgram(){  return mShaderProgram; }
+    std::shared_ptr<Material> GetMaterial(){  return mMaterial; }
 
     glm::mat4 GetModelMatrix();
     glm::vec3 GetLocation(){return mPosition;}
     glm::vec3 GetRotation(){return mRotation;}
     glm::vec3 GetScale(){return mScale;}
-    void SetShaderProgram(std::shared_ptr<ShaderProgram> pSP){ mShaderProgram = pSP; }
-
-    void SetTexture(int index, std::shared_ptr<Texture2D> texture);
+    void SetMaterial(std::shared_ptr<Material> pSP){ mMaterial = pSP; }
     void SetLocation(glm::vec3 location){mPosition = location; bIsTransformDirty = true;}
     void SetRotation(glm::vec3 rotation){mRotation = rotation; bIsTransformDirty = true;}
     void SetScale(glm::vec3 scale){mScale = scale; bIsTransformDirty = true;}
 
     MeshBatch mMeshBatch;
 private:
-    StaticMesh(){
-        mTextures.resize(MaxTextureCount,nullptr);
-    }
+    StaticMesh(){}
 
     void Draw();
 
     void BindGlVertexAttribPointer();
 
-    void BindTexture();
-
     void CalculModelMatrix();
 
-    std::shared_ptr<ShaderProgram> mShaderProgram = nullptr;
+    std::shared_ptr<Material> mMaterial = nullptr;
 
     glm::vec3 mPosition{0.0f,0.0f,0.0f};
     glm::vec3 mScale{1.0f,1.0f,1.0f};
@@ -94,6 +88,5 @@ private:
     GLuint mVBO = 0;
     GLuint mEBO = 0;
     
-    std::vector<std::shared_ptr<Texture2D>> mTextures;
 };
 

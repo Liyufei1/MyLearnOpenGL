@@ -42,6 +42,8 @@ public:
 
     void InitLight();
 
+    
+
     //贴图
     std::shared_ptr<Texture2D> T_WoodBox = nullptr;
     std::shared_ptr<Texture2D> T_SmallFace = nullptr;
@@ -49,6 +51,10 @@ public:
     //着色器程序
     std::shared_ptr<ShaderProgram> PhoneShaderPrograme = nullptr;
     std::shared_ptr<ShaderProgram> BaseShaderPrograme = nullptr;
+
+    //材质
+    std::shared_ptr<Material> M_Phone = nullptr;
+    std::shared_ptr<Material> M_Base = nullptr;
 
     //光照
     Light PointLight1;
