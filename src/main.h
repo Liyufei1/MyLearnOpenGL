@@ -46,6 +46,8 @@ public:
 
     //贴图
     std::shared_ptr<Texture2D> T_WoodBox = nullptr;
+    std::shared_ptr<Texture2D> T_WoodBox2 = nullptr;
+    std::shared_ptr<Texture2D> T_WoodBox2_Spacular = nullptr;
     std::shared_ptr<Texture2D> T_SmallFace = nullptr;
 
     //着色器程序

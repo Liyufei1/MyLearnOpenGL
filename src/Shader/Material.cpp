@@ -21,7 +21,7 @@ void Material::Use(){
     GetShaderProgram()->SetParamater("uMaterial.diffuse", GetDiffuseColor());
     // glActiveTexture(GL_TEXTURE0);
     // glBindTexture(GL_TEXTURE_2D, mDiffuseTexture->GetTextureID());
-    GetShaderProgram()->SetParamater("uMaterial.specular", GetSpecular());
+    GetShaderProgram()->SetParamater("uMaterial.specular", GetSpecularColor());
     GetShaderProgram()->SetParamater("uMaterial.shininess", GetShininess());
 }
 
@@ -35,7 +35,7 @@ void StdMaterial::Use(){
     GetShaderProgram()->SetParamater("uMaterial.diffuse", GetDiffuseColor());
     // glActiveTexture(GL_TEXTURE0);
     // glBindTexture(GL_TEXTURE_2D, mDiffuseTexture->GetTextureID());
-    GetShaderProgram()->SetParamater("uMaterial.specular", GetSpecular());
+    GetShaderProgram()->SetParamater("uMaterial.specular", GetSpecularColor());
     GetShaderProgram()->SetParamater("uMaterial.shininess", GetShininess());
 }
 
@@ -46,9 +46,11 @@ void PhoneMaterial::Use(){
         return;
     }
     GetShaderProgram()->Use();
-    glActiveTexture(GL_TEXTURE8);
     GetShaderProgram()->SetParamater("uMaterial.diffuse", 8);
+    glActiveTexture(GL_TEXTURE8);
     glBindTexture(GL_TEXTURE_2D, GetDiffuseTexture()->GetTextureID());
-    GetShaderProgram()->SetParamater("uMaterial.specular", GetSpecular());
+    GetShaderProgram()->SetParamater("uMaterial.specular", 9);
+    glActiveTexture(GL_TEXTURE9);
+    glBindTexture(GL_TEXTURE_2D, GetSpecularTexture()->GetTextureID());
     GetShaderProgram()->SetParamater("uMaterial.shininess", GetShininess());
 }

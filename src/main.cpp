@@ -20,6 +20,8 @@ void Main::LoadUsedResources(){
 
 	//加载的贴图
 	T_WoodBox = std::shared_ptr<Texture2D>{new Texture2D("E:/study/LearnOpenGL/Art/Texture/T_WoodBox.jpg")};
+	T_WoodBox2 = std::shared_ptr<Texture2D>{new Texture2D("E:/study/LearnOpenGL/Art/Texture/container2.png")};
+	T_WoodBox2_Spacular  = std::shared_ptr<Texture2D>{new Texture2D("E:/study/LearnOpenGL/Art/Texture/container2_specular.png")};
 	T_SmallFace = std::shared_ptr<Texture2D>{new Texture2D("E:/study/LearnOpenGL/Art/Texture/T_face.png")};
 
 	//着色器程序
@@ -31,7 +33,9 @@ void Main::LoadUsedResources(){
 	
 	M_Phone = std::make_shared<PhoneMaterial>();
 	M_Phone->SetShaderPrograrm(PhoneShaderPrograme);
-	M_Phone->SetDiffuseTexture(T_WoodBox);
+	M_Phone->SetDiffuseTexture(T_WoodBox2);
+	M_Phone->SetSpecularTexture(T_WoodBox2_Spacular);
+	M_Phone->SetShininess(8);
 }
 
 
