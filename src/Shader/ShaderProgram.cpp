@@ -11,6 +11,8 @@ std::shared_ptr<ShaderProgram> ShaderProgram::GetDefaultShaderProgram(){
     return DefaultShaderProgram;
 }
 
+int CurShaderProgram = 0;
+
 ShaderProgram::ShaderProgram(const ShaderBase& Shader){
         Program = glCreateProgram();
         if (!Shader.IsInit()) {
@@ -44,6 +46,9 @@ void ShaderProgram::Use() const{
         return;
     }
     // LOG(LOGERROR,"Use ShaderProgram :: ", Program);
+    if (CurShaderProgram == Program) {
+        return;
+    }
     glUseProgram(Program);
 }
 

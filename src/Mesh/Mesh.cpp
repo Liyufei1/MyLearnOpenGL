@@ -9,7 +9,7 @@
 
 
 StaticMesh::~StaticMesh(){
-    MeshManager::GetInstance().RemoveMesh(shared_from_this());
+    RenderManager::GetInstance().RemoveMesh(shared_from_this());
     glDeleteBuffers(1,&mVAO);
     glDeleteBuffers(1,&mVBO);
     glDeleteBuffers(1,&mEBO);

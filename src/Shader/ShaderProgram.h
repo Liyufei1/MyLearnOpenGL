@@ -14,6 +14,8 @@ public:
     ~ShaderProgram();
     void Use() const;
 
+    int GetProgramID() const{return Program;}
+
     static std::shared_ptr<ShaderProgram> GetDefaultShaderProgram();
 
     template<typename T>

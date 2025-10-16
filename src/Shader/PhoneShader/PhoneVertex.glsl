@@ -7,29 +7,19 @@ layout (location = 4) in vec2 aUV;
 layout (location = 5) in vec2 aUV1;
 layout (location = 6) in vec2 aUV2;
 
-
-
 uniform mat4 uModelMatrix;
 uniform mat4 uViewMatrix;
 uniform mat4 uProjectionMatrix;
 uniform mat4 uViewProjectionMatrix;
-uniform float Test;
 
-
-out vec4 TestColor;
+out vec3 FragPos;
+out vec3 Normal;
 out vec2 TexCoord;
 
-out vec3 oNormal;
-out vec3 oFragPos;
-
 void main(){
-    oNormal = mat3(transpose(inverse(uModelMatrix))) * aNormal;
-    oFragPos = vec3(uModelMatrix * vec4(aPos, 1.0f));
-
-    // TestColor = vec4(Test,0.0f,0.0f, 1.0f);
-    // TestColor = vec4(aNormal,1.0f);
-    // TestColor = vec4(aTangent,1.0f);
-
+    FragPos = vec3(uModelMatrix * vec4(aPos, 1.0f));
+    Normal = mat3(transpose(inverse(uModelMatrix))) * aNormal;
     TexCoord = aUV;
+
     gl_Position = uViewProjectionMatrix * uModelMatrix * vec4(aPos, 1.0f);
 }

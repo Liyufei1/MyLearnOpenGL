@@ -1,11 +1,12 @@
 #pragma once
+#include "Light/Light.h"
 #include "Camera/Camera.h"
 #include "Common/CommonFunLib.h"
 #include "Common/CommonFunLib.hpp"
 #include "Common/Config.h"
 #include "Window/Window.h"
 #include "Mesh/Mesh.h"
-#include "Mesh/MeshManager.h"
+#include "Mesh/RenderManager.h"
 #include "Texture/Texture2D.h"
 
 #include "glm/ext/matrix_transform.hpp"
@@ -59,7 +60,7 @@ public:
     std::shared_ptr<Material> M_Base = nullptr;
 
     //光照
-    Light PointLight1;
+    PointLight PointLight1;
     std::shared_ptr<StaticMesh> SM_PointLight1   = nullptr;
 
 private:

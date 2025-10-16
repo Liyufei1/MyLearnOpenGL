@@ -1,5 +1,6 @@
 #include "main.h"
 
+#include "Mesh/RenderManager.h"
 #include "Shader/Material.h"
 #include "Shader/ShaderProgram.h"
 #include "glfw/glfw3.h"
@@ -27,6 +28,9 @@ void Main::LoadUsedResources(){
 	//着色器程序
 	PhoneShaderPrograme = std::make_shared<ShaderProgram>("src/Shader/PhoneShader/PhoneVertex.glsl","src/Shader/PhoneShader/PhoneFragment.glsl");
 	BaseShaderPrograme = ShaderProgram::GetDefaultShaderProgram();
+	RenderManager::GetInstance().AddShaderProgram(BaseShaderPrograme);
+	RenderManager::GetInstance().AddShaderProgram(PhoneShaderPrograme);
+
 
 	//材质
 	M_Base = Material::GetDefaultMaterial();
@@ -45,18 +49,20 @@ void Main::InitMesh(){
 
 void Main::InitLight(){
 	
-	PointLight1.SetDiffuse(glm::vec3(1.0f, 1.0f, 1.0f));
-	PointLight1.SetPosition(glm::vec3(2.0 * sin(0), 2.0*cos(0), 1.0f));
-	PointLight1.AddShaderProgram(PhoneShaderPrograme);
+	PointLight1.SetIndex(0);
+	PointLight1.SetLocation(glm::vec3(2.0 * sin(0), 2.0*cos(0), 1.0f));
+	// PointLight1.SetLinear(0.09);
+	// PointLight1.SetQuadratic(0.0032);
+	RenderManager::GetInstance().AddLight(&PointLight1);
+
 	SM_PointLight1 = BoxMesh();
-	SM_PointLight1->SetLocation(PointLight1.GetLightPosition());
+	SM_PointLight1->SetLocation(PointLight1.GetLocation());
 	SM_PointLight1->SetMaterial(M_Base);
 	SM_PointLight1->SetScale(glm::vec3(0.1f, 0.1f, 0.1f));
 
 	AddUpdateFunction([this](){
-		PointLight1.SetPosition(glm::vec3(2.0 * sin(glfwGetTime()), 2.0*cos(glfwGetTime()), 1.0f));
-		SM_PointLight1->SetLocation(PointLight1.GetLightPosition());
-		PointLight1.UpdateLight();
+		PointLight1.SetLocation(glm::vec3(2.0 * sin(glfwGetTime()), 2.0*cos(glfwGetTime()), 1.0f));
+		SM_PointLight1->SetLocation(PointLight1.GetLocation());
 	});
 	
 }
@@ -96,7 +102,7 @@ int main()
 	SM3->SetScale(glm::vec3(2.5,2.5,2.5));
 
 
-	MeshManager::GetInstance().BindData();
+	RenderManager::GetInstance().BindData();
 
 
 	
@@ -107,14 +113,13 @@ int main()
 
 		main.Update();
 
-		
+	
 		
 		SM->SetRotation(glm::vec3{0.0f,0.0f,90 * std::fmod(glfwGetTime(),4)});
 		SM->GetMaterial()->GetShaderProgram()->SetParamater<float>("Test", (sin(glfwGetTime())));
 
 
-		// LOG(LOGTEMP,lyf::ToString(SM->GetModelMatrix()));
-		MeshManager::GetInstance().Render();
+		RenderManager::GetInstance().Render();
 	});
 	window.Run();
 	
