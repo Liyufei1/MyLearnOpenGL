@@ -11,6 +11,12 @@ std::shared_ptr<Material> Material::GetDefaultMaterial(){
     }
     return DefaultMaterial;
 }
+std::shared_ptr<Material> Material::CreateDefaultMaterial(){
+    std::shared_ptr<Material> Mat =  std::make_shared<Material>();
+    Mat->SetShaderPrograrm(ShaderProgram::GetDefaultShaderProgram());
+    return Mat;
+}
+
 void Material::Use(){
     if(GetShaderProgram() == nullptr){
         LOG(LOGERROR, "ShaderProgram is null,Use default ShaderProgram");

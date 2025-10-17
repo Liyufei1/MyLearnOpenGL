@@ -1,6 +1,9 @@
 #include "Light.h"
 #include "Common/CommonFunLib.hpp"
 #include <string>
+#include "Mesh/MeshLib.h"
+#include "Shader/Material.h"
+
 
 
 void DirLight::UpdateLight(std::shared_ptr<ShaderProgram>pShaderProgram){
@@ -9,9 +12,24 @@ void DirLight::UpdateLight(std::shared_ptr<ShaderProgram>pShaderProgram){
     }
     pShaderProgram->SetParamater<glm::vec3>("uDirLight.direction", mDirection);
     
-    pShaderProgram->SetParamater<glm::vec3>("uDirLight.ambient", GetAmbient());
-    pShaderProgram->SetParamater<glm::vec3>("uDirLight.diffuse", GetDiffuse());
-    pShaderProgram->SetParamater<glm::vec3>("uDirLight.specula", GetSpecular());
+    pShaderProgram->SetParamater<glm::vec3>("uDirLight.ambient", GetAmbient()*mInstensity);
+    pShaderProgram->SetParamater<glm::vec3>("uDirLight.diffuse", GetDiffuse()*mInstensity);
+    pShaderProgram->SetParamater<glm::vec3>("uDirLight.specula", GetSpecular()*mInstensity);
+}
+void DirLight::SetInstensity(float pInstensity)
+{
+    bIsDirty = true ; 
+    mInstensity = pInstensity;
+}
+
+
+PointLight::PointLight(){
+    mMesh =  BoxMesh();
+    mMesh->SetMaterial(Material::CreateDefaultMaterial());
+    mMesh->SetLocation(GetLocation());
+    mMesh->SetScale(glm::vec3(0.1f, 0.1f, 0.1f));
+    mMesh->GetMaterial()->SetDiffuseColor(GetDiffuse());
+    // mMesh->GetMaterial()->SetDiffuseColor(glm::vec3(1.0f, 0.0f, 1.0f));
 }
 
 void PointLight::UpdateLight(std::shared_ptr<ShaderProgram> pShaderProgram){
@@ -35,6 +53,11 @@ void PointLight::UpdateLight(std::shared_ptr<ShaderProgram> pShaderProgram){
 
 }
 
+void PointLight::SetLocation(glm::vec3 pLocation){
+    bIsDirty = true ;
+    mLocation = pLocation;
+    mMesh->SetLocation(pLocation);
+}
 void SpotLight::UpdateLight(std::shared_ptr<ShaderProgram> pShaderProgram){
     if (!bIsDirty) {
         return;

@@ -67,7 +67,7 @@ void main()
     vec3 viewDir = normalize(uCameraPos - FragPos);
 
     vec3 result = vec3(0.0);
-    // result += CalcDirLight(uDirLight, norm, viewDir);
+    result += CalcDirLight(uDirLight, norm, viewDir);
     for(int i = 0; i < POINT_LIGHTS_NUM; i++)
     {
         result += CalcPointLight(uPointLights[i], norm, FragPos, viewDir);
@@ -109,9 +109,6 @@ vec3 CalcPointLight(PointLight light, vec3 normal, vec3 fragPos, vec3 viewDir)
     vec3 specular = pow(max(dot(reflectDir,viewDir), 0.0f), uMaterial.shininess) * light.specular * texture(uMaterial.specular,TexCoord.xy).rgb; 
 
     return (ambient + diffuse + specular) * attenuation;
-    // return (ambient + diffuse + specular);
-    // return (ambient + specular);
-    // return light.specular;
 }
 
 vec3 CalcSpotLight(SpotLight light, vec3 normal, vec3 fragPos, vec3 viewDir)

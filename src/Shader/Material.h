@@ -21,6 +21,9 @@ private:
 public:
     static std::shared_ptr<Material> GetDefaultMaterial();
 
+    static std::shared_ptr<Material> CreateDefaultMaterial();
+
+
     Material(std::shared_ptr<ShaderProgram> pShaderProgram) : mShaderProgram(pShaderProgram){}
     Material()  = default;
     ~Material() = default;

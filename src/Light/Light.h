@@ -1,8 +1,10 @@
 #pragma once
+#include "Mesh/Mesh.h"
 #include "Shader/ShaderProgram.h"
 #include "glm/ext/vector_float3.hpp"
 #include <memory>
 
+class StaticMesh;
 
 class Light{
 
@@ -27,17 +29,22 @@ class DirLight : public Light
 public:
     virtual void UpdateLight(std::shared_ptr<ShaderProgram> pShaderProgram) override;
     void SetDirection(glm::vec3 pDirection){bIsDirty = true ; mDirection= pDirection;}
+    void SetInstensity(float pInstensity);
 private:
-    glm::vec3 mDirection{0.0f, 0.0f, 0.0f};
+    glm::vec3 mDirection{0.0f, 0.0f, -1.0f};
+    float mInstensity = 1.0f;
 };
 
 class PointLight : public Light
 {
 public:
+    PointLight();
+    ~PointLight(){}
     virtual void UpdateLight(std::shared_ptr<ShaderProgram> pShaderProgram) override;
     void SetIndex(int pIndex){mIndex = pIndex;}
     int GetIndex(){return mIndex;}
-    void SetLocation(glm::vec3 pLocation){bIsDirty = true ;mLocation = pLocation;}
+    
+    void SetLocation(glm::vec3 pLocation);
     glm::vec3 GetLocation(){return mLocation;}
     void SetConstant(float pConstant){bIsDirty = true;mConstant = pConstant;}
     void SetLinear(float pLinear){bIsDirty = true;mLinear = pLinear;}
@@ -49,6 +56,8 @@ private:
     float mConstant = 1.0f;     //常数项
     float mLinear = 0.22f;       //线性项
     float mQuadratic = 0.20f;    //二次项
+
+    std::shared_ptr<StaticMesh> mMesh;
 };
 
 class SpotLight : public Light

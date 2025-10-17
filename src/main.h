@@ -60,6 +60,7 @@ public:
     std::shared_ptr<Material> M_Base = nullptr;
 
     //光照
+    DirLight L_DirLight;
     PointLight PointLight1;
     std::shared_ptr<StaticMesh> SM_PointLight1   = nullptr;
 

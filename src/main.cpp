@@ -1,5 +1,6 @@
 #include "main.h"
 
+#include "Light/Light.h"
 #include "Mesh/RenderManager.h"
 #include "Shader/Material.h"
 #include "Shader/ShaderProgram.h"
@@ -48,21 +49,19 @@ void Main::InitMesh(){
 }
 
 void Main::InitLight(){
+	RenderManager::GetInstance().AddLight(&L_DirLight);
+	L_DirLight.SetDirection(glm::vec3(0.0f, 0.0f, -1.0f));
+	L_DirLight.SetInstensity(0.1f);
 	
+	
+	RenderManager::GetInstance().AddLight(&PointLight1);
 	PointLight1.SetIndex(0);
 	PointLight1.SetLocation(glm::vec3(2.0 * sin(0), 2.0*cos(0), 1.0f));
 	// PointLight1.SetLinear(0.09);
 	// PointLight1.SetQuadratic(0.0032);
-	RenderManager::GetInstance().AddLight(&PointLight1);
-
-	SM_PointLight1 = BoxMesh();
-	SM_PointLight1->SetLocation(PointLight1.GetLocation());
-	SM_PointLight1->SetMaterial(M_Base);
-	SM_PointLight1->SetScale(glm::vec3(0.1f, 0.1f, 0.1f));
 
 	AddUpdateFunction([this](){
 		PointLight1.SetLocation(glm::vec3(2.0 * sin(glfwGetTime()), 2.0*cos(glfwGetTime()), 1.0f));
-		SM_PointLight1->SetLocation(PointLight1.GetLocation());
 	});
 	
 }

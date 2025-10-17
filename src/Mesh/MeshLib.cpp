@@ -154,3 +154,10 @@ std::shared_ptr<StaticMesh> PlaneMesh(){
 	};
     return SM;
 }
+
+
+std::shared_ptr<StaticMesh> ArrowMesh(){
+	std::shared_ptr<StaticMesh> SM = StaticMesh::CreateMesh();
+
+	return SM;
+}
