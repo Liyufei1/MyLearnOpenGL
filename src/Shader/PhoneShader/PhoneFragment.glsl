@@ -42,7 +42,7 @@ struct SpotLight {
     vec3 specular;      
 };
 
-#define POINT_LIGHTS_NUM 1
+#define POINT_LIGHTS_NUM 2
 #define SPOT_LIGHTS_NUM 1
 
 in vec2 TexCoord;
