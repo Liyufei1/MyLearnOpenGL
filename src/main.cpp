@@ -143,17 +143,17 @@ int main()
 
 		RenderManager::GetInstance().Render();
 
-		// // ImGui 窗口和按钮
-		// if (window.IsImGuiInitialized())
-		// {
-		// 	ImGui::Begin("ImGui Demo Window");
-		// 	ImGui::Text("This is a demo window with a button");
-		// 	if (ImGui::Button("Click Me!"))
-		// 	{
-		// 		LOG(LOGTEMP, "ImGui button clicked!");
-		// 	}
-		// 	ImGui::End();
-		// }
+		// ImGui 窗口和按钮
+		if (window.IsImGuiInitialized())
+		{
+			ImGui::Begin("ImGui Demo Window");
+			ImGui::Text("This is a demo window with a button");
+			if (ImGui::Button("Click Me!"))
+			{
+				LOG(LOGTEMP, "ImGui button clicked!");
+			}
+			ImGui::End();
+		}
 	});
 	window.Run();
 	

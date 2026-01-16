@@ -6,7 +6,7 @@
 #include "glfw/glfw3.h"
 
 void Window::Init(){
-    LOG(LOGTEMP, "Window::Init -========================================= ");
+    LOG(LOGTEMP, "====================== Window::Init :: Begin ======================");
 
     glfwInit();
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
@@ -41,9 +41,10 @@ void Window::Init(){
 	//depth test
 	glEnable(GL_DEPTH_TEST);
 
-    LOG(LOGTEMP, "Window::InitImGui - mWindow pointer 1 : ", (long long)mWindow);
 
     InitImGui();
+
+    LOG(LOGTEMP, "====================== Window::Init :: End ======================");
 }
 
 void Window::Run(){
@@ -96,8 +97,6 @@ bool Window::InitImGui()
     if (mImGuiInitialized) {
         return true;
     }
-
-    LOG(LOGTEMP, "Window::InitImGui - mWindow pointer 2 : ", (long long)mWindow);
 
     if (ImGuiManager::GetInstance().Init(mWindow)) {
         mImGuiInitialized = true;

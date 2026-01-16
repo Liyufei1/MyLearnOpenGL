@@ -28,16 +28,11 @@ ImGuiManager& ImGuiManager::GetInstance()
 
 bool ImGuiManager::Init(GLFWwindow* window)
 {
-    LOG(LOGTEMP, "Window::InitImGui - mWindow pointer 3 : ", (long long)window);
+    LOG(LOGTEMP, "====================== ImGuiManager::Init :: Begin ======================");
 
-    if (mIsInitialized)
-    {
-        return true;
-    }
-
-    // 检查窗口指针
-    if (!window)
-    {
+    // check
+    if (mIsInitialized) return true;
+    if (!window){
         LOG(LOGERROR, "ImGuiManager::Init - Window pointer is null");
         return false;
     }
@@ -70,6 +65,7 @@ bool ImGuiManager::Init(GLFWwindow* window)
 
     mIsInitialized = true;
     LOG(LOGTEMP, "ImGuiManager initialized successfully");
+    LOG(LOGTEMP, "====================== ImGuiManager::Init :: End ======================");
     return true;
 }
 
