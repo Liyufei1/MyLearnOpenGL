@@ -1,7 +1,6 @@
 #pragma once
 
 #include "Common/CommonFunLib.hpp"
-// #include "glad/glad.h"
 #include "glfw/glfw3.h"
 #include <string>
 #include <functional>

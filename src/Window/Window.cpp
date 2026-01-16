@@ -6,6 +6,8 @@
 #include "glfw/glfw3.h"
 
 void Window::Init(){
+    LOG(LOGTEMP, "Window::Init -========================================= ");
+
     glfwInit();
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
@@ -38,6 +40,10 @@ void Window::Init(){
 	
 	//depth test
 	glEnable(GL_DEPTH_TEST);
+
+    LOG(LOGTEMP, "Window::InitImGui - mWindow pointer 1 : ", (long long)mWindow);
+
+    InitImGui();
 }
 
 void Window::Run(){
@@ -87,23 +93,17 @@ void Window::SetRunFunction(std::function<void()> InFunction){
 
 bool Window::InitImGui()
 {
-    if (mImGuiInitialized)
-    {
+    if (mImGuiInitialized) {
         return true;
     }
 
-    LOG(LOGTEMP, "Window::InitImGui - mWindow pointer: ", (long long)mWindow);
+    LOG(LOGTEMP, "Window::InitImGui - mWindow pointer 2 : ", (long long)mWindow);
 
-    if (ImGuiManager::GetInstance().Init(mWindow))
-    {
+    if (ImGuiManager::GetInstance().Init(mWindow)) {
         mImGuiInitialized = true;
         LOG(LOGTEMP, "ImGui initialized successfully");
-        // 启用鼠标输入以支持 ImGui 交互
-        SetCursorMode(true);
         return true;
-    }
-    else
-    {
+    } else {
         LOG(LOGERROR, "Failed to initialize ImGui");
         return false;
     }

@@ -28,6 +28,8 @@ ImGuiManager& ImGuiManager::GetInstance()
 
 bool ImGuiManager::Init(GLFWwindow* window)
 {
+    LOG(LOGTEMP, "Window::InitImGui - mWindow pointer 3 : ", (long long)window);
+
     if (mIsInitialized)
     {
         return true;
