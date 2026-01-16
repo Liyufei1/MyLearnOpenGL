@@ -1,8 +1,5 @@
 .sconsign.dblite
 .cache
 build
-.obj
-include/glad/glad.obj
-include/Common/CommonFunLib.obj
-compile_commands.json
+**/*.obj
 compile_commands.json
