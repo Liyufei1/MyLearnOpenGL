@@ -151,6 +151,7 @@ int main()
 			if (ImGui::Button("Click Me!"))
 			{
 				LOG(LOGTEMP, "ImGui button clicked!");
+				main.PointLight1.SetAmbient(glm::vec3(1,0,0));
 			}
 			ImGui::End();
 		}

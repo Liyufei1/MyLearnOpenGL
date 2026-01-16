@@ -71,8 +71,7 @@ bool ImGuiManager::Init(GLFWwindow* window)
 
 void ImGuiManager::NewFrame()
 {
-    if (!mIsInitialized)
-    {
+    if (!mIsInitialized){
         return;
     }
 

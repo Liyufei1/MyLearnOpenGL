@@ -57,16 +57,14 @@ void Window::Run(){
 		Input::InputEvents(mWindow);
 
         // ImGui 新帧
-        if (mImGuiInitialized)
-        {
+        if (mImGuiInitialized){
             ImGuiManager::GetInstance().NewFrame();
         }
 
         mRunFunction();
 
         // ImGui 渲染
-        if (mImGuiInitialized)
-        {
+        if (mImGuiInitialized){
             ImGuiManager::GetInstance().Render();
         }
 
