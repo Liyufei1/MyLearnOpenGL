@@ -1,6 +1,8 @@
+#include "glad/glad.h"
 #include "Window.h"
 #include "Common/CommonFunLib.h"
 #include "InputEvent.h"
+#include "ImGuiManager.h"
 #include "glfw/glfw3.h"
 
 void Window::Init(){
@@ -47,7 +49,19 @@ void Window::Run(){
 	{
 		Input::InputEvents(mWindow);
 
+        // ImGui 新帧
+        if (mImGuiInitialized)
+        {
+            ImGuiManager::GetInstance().NewFrame();
+        }
+
         mRunFunction();
+
+        // ImGui 渲染
+        if (mImGuiInitialized)
+        {
+            ImGuiManager::GetInstance().Render();
+        }
 
 		glfwSwapBuffers(mWindow);
 		glfwPollEvents();
@@ -55,6 +69,13 @@ void Window::Run(){
 }
 
 void Window::Close(){
+    // 清理 ImGui
+    if (mImGuiInitialized)
+    {
+        ImGuiManager::GetInstance().Shutdown();
+        mImGuiInitialized = false;
+    }
+
     glfwTerminate();
 }
 
@@ -62,4 +83,48 @@ void Window::Close(){
 
 void Window::SetRunFunction(std::function<void()> InFunction){
     mRunFunction = InFunction;
+}
+
+bool Window::InitImGui()
+{
+    if (mImGuiInitialized)
+    {
+        return true;
+    }
+
+    LOG(LOGTEMP, "Window::InitImGui - mWindow pointer: ", (long long)mWindow);
+
+    if (ImGuiManager::GetInstance().Init(mWindow))
+    {
+        mImGuiInitialized = true;
+        LOG(LOGTEMP, "ImGui initialized successfully");
+        // 启用鼠标输入以支持 ImGui 交互
+        SetCursorMode(true);
+        return true;
+    }
+    else
+    {
+        LOG(LOGERROR, "Failed to initialize ImGui");
+        return false;
+    }
+}
+
+void Window::ShutdownImGui()
+{
+    if (mImGuiInitialized)
+    {
+        ImGuiManager::GetInstance().Shutdown();
+        mImGuiInitialized = false;
+        LOG(LOGTEMP, "ImGui shutdown");
+    }
+}
+
+void Window::SetCursorMode(bool enabled)
+{
+    mCursorMode = enabled;
+    if (enabled) {
+        glfwSetInputMode(mWindow, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
+    } else {
+        glfwSetInputMode(mWindow, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+    }
 }

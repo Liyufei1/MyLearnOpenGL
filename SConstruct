@@ -7,7 +7,7 @@ env.Append(CXXFLAGS=["/std:c++17" , "/EHsc"])
 env.VariantDir('build', 'src', duplicate=0)
 
 # # 添加 include/ 目录为头文件路径
-env.Append(CPPPATH=['include','src','Art'])
+env.Append(CPPPATH=['include','include/imgui','include/imgui/backends','src','Art'])
 
 #添加依赖库
 env.Append(LIBPATH=['lib'])
@@ -16,6 +16,8 @@ env.Append(LIBS=['glfw3_mt','shell32','User32','Gdi32'])
 # # 搜集源文件（注意 glad.c 和 CommonFunLib.cpp 也需要加入）
 sources = Glob("build/*.cpp") + Glob("build/**/*.cpp")
 sources += Glob("include/**/*.cpp") + Glob("include/**/*.c")
+# 添加 ImGui 后端源文件（只添加需要的）
+sources += ['include/imgui/backends/imgui_impl_glfw.cpp', 'include/imgui/backends/imgui_impl_opengl3.cpp']
 
 # # 编译目标程序
 program = env.Program(target='build/app', source=sources)

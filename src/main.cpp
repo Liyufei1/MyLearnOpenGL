@@ -14,6 +14,7 @@
 #include <vector>
 #include "Mesh/MeshLib.h"
 #include "Camera/Camera.h"
+#include "imgui/imgui.h"
 
 #include <random>
 
@@ -86,6 +87,12 @@ int main()
 	main.LoadUsedResources();
 	main.InitLight();
 
+	// 初始化 ImGui
+	if (!window.InitImGui())
+	{
+		LOG(LOGERROR, "Failed to initialize ImGui");
+	}
+
 	TestFun();
 	
 
@@ -137,12 +144,22 @@ int main()
 
 		main.Update();
 
-		
 		SM->SetRotation(glm::vec3{0.0f,0.0f,90 * std::fmod(glfwGetTime(),4)});
 		SM->GetMaterial()->GetShaderProgram()->SetParamater<float>("Test", (sin(glfwGetTime())));
 
-
 		RenderManager::GetInstance().Render();
+
+		// ImGui 窗口和按钮
+		if (window.IsImGuiInitialized())
+		{
+			ImGui::Begin("ImGui Demo Window");
+			ImGui::Text("This is a demo window with a button");
+			if (ImGui::Button("Click Me!"))
+			{
+				LOG(LOGTEMP, "ImGui button clicked!");
+			}
+			ImGui::End();
+		}
 	});
 	window.Run();
 	
