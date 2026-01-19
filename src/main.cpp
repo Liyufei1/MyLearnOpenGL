@@ -126,6 +126,8 @@ int main()
 	SM3->SetLocation(glm::vec3(0.0f,0.0f,-2.0f));
 	SM3->SetScale(glm::vec3(2.5,2.5,2.5));
 
+	std::shared_ptr<StaticMesh> SM_model = ModelMesh();
+
 
 	RenderManager::GetInstance().BindData();
 

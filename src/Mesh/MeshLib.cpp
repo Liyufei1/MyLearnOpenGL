@@ -1,5 +1,10 @@
-#include "MeshLib.h"
+﻿#include "MeshLib.h"
+#include "Common/CommonFunLib.hpp"
 #include "Texture/Texture2D.h"
+
+#include "assimp/Importer.hpp"
+#include "assimp/scene.h"
+#include "assimp/postprocess.h"
 
 
 std::shared_ptr<StaticMesh> TestMesh0(){
@@ -158,6 +163,21 @@ std::shared_ptr<StaticMesh> PlaneMesh(){
 
 std::shared_ptr<StaticMesh> ArrowMesh(){
 	std::shared_ptr<StaticMesh> SM = StaticMesh::CreateMesh();
+
+	return SM;
+}
+
+
+std::shared_ptr<StaticMesh> ModelMesh(){
+	std::shared_ptr<StaticMesh> SM = StaticMesh::CreateMesh();
+	
+	Assimp::Importer importer;
+	const aiScene* scene = importer.ReadFile("Art/SM/test.fbx", aiProcess_Triangulate | aiProcess_CalcTangentSpace | aiProcess_JoinIdenticalVertices | aiProcess_GenSmoothNormals);
+
+	if (!scene || scene->mFlags & AI_SCENE_FLAGS_INCOMPLETE || !scene->mRootNode) {
+		LOG(LOGERROR,"ASSIMP :: LOAD FAILED , Art/SM/test.fbx")
+		LOG(LOGERROR,"ASSIMP :: LOAD FAILED :",importer.GetErrorString())
+	}
 
 	return SM;
 }
