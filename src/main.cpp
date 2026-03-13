@@ -94,15 +94,15 @@ int main()
     std::mt19937 gen(rd());     
     std::uniform_real_distribution<double> dist(0.0, 1.0);
 
-	std::vector<std::shared_ptr<StaticMesh>> SMArray;
-	for(int i = 0; i < 10; i++){
-		std::shared_ptr<StaticMesh> Temp = BoxMesh();
-		Temp->SetMaterial(main.M_Phone);
-		Temp->SetLocation(glm::vec3(dist(gen)*5 - 2.5,dist(gen)*5 - 2.5,dist(gen)*5 - 2.5));
-		Temp->SetScale(glm::vec3(dist(gen)));
-		Temp->SetRotation(glm::vec3(dist(gen) * 180,dist(gen) * 90,dist(gen) * 360));
-		SMArray.push_back(Temp);
-	}
+	// std::vector<std::shared_ptr<StaticMesh>> SMArray;
+	// for(int i = 0; i < 10; i++){
+	// 	std::shared_ptr<StaticMesh> Temp = BoxMesh();
+	// 	Temp->SetMaterial(main.M_Phone);
+	// 	Temp->SetLocation(glm::vec3(dist(gen)*5 - 2.5,dist(gen)*5 - 2.5,dist(gen)*5 - 2.5));
+	// 	Temp->SetScale(glm::vec3(dist(gen)));
+	// 	Temp->SetRotation(glm::vec3(dist(gen) * 180,dist(gen) * 90,dist(gen) * 360));
+	// 	SMArray.push_back(Temp);
+	// }
 	
 
 	std::shared_ptr<StaticMesh> SM = TestMesh0();
@@ -127,6 +127,8 @@ int main()
 	SM3->SetScale(glm::vec3(2.5,2.5,2.5));
 
 	std::shared_ptr<StaticMesh> SM_model = ModelMesh();
+	// SM_model->SetMaterial(main.M_Phone);
+	// SM_model->SetScale(glm::vec3(1.0,1.0,2.5));
 
 
 	RenderManager::GetInstance().BindData();
