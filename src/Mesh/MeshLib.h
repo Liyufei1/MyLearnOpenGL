@@ -10,3 +10,5 @@ std::shared_ptr<StaticMesh> BoxMesh();
 std::shared_ptr<StaticMesh> PlaneMesh();
 
 std::shared_ptr<StaticMesh> ArrowMesh();
+
+std::shared_ptr<StaticMesh> ModelMesh();

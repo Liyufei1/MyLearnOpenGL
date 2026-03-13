@@ -14,6 +14,7 @@
 #include <vector>
 #include "Mesh/MeshLib.h"
 #include "Camera/Camera.h"
+#include "imgui/imgui.h"
 
 #include <random>
 
@@ -93,15 +94,15 @@ int main()
     std::mt19937 gen(rd());     
     std::uniform_real_distribution<double> dist(0.0, 1.0);
 
-	std::vector<std::shared_ptr<StaticMesh>> SMArray;
-	for(int i = 0; i < 10; i++){
-		std::shared_ptr<StaticMesh> Temp = BoxMesh();
-		Temp->SetMaterial(main.M_Phone);
-		Temp->SetLocation(glm::vec3(dist(gen)*5 - 2.5,dist(gen)*5 - 2.5,dist(gen)*5 - 2.5));
-		Temp->SetScale(glm::vec3(dist(gen)));
-		Temp->SetRotation(glm::vec3(dist(gen) * 180,dist(gen) * 90,dist(gen) * 360));
-		SMArray.push_back(Temp);
-	}
+	// std::vector<std::shared_ptr<StaticMesh>> SMArray;
+	// for(int i = 0; i < 10; i++){
+	// 	std::shared_ptr<StaticMesh> Temp = BoxMesh();
+	// 	Temp->SetMaterial(main.M_Phone);
+	// 	Temp->SetLocation(glm::vec3(dist(gen)*5 - 2.5,dist(gen)*5 - 2.5,dist(gen)*5 - 2.5));
+	// 	Temp->SetScale(glm::vec3(dist(gen)));
+	// 	Temp->SetRotation(glm::vec3(dist(gen) * 180,dist(gen) * 90,dist(gen) * 360));
+	// 	SMArray.push_back(Temp);
+	// }
 	
 
 	std::shared_ptr<StaticMesh> SM = TestMesh0();
@@ -125,6 +126,10 @@ int main()
 	SM3->SetLocation(glm::vec3(0.0f,0.0f,-2.0f));
 	SM3->SetScale(glm::vec3(2.5,2.5,2.5));
 
+	std::shared_ptr<StaticMesh> SM_model = ModelMesh();
+	// SM_model->SetMaterial(main.M_Phone);
+	// SM_model->SetScale(glm::vec3(1.0,1.0,2.5));
+
 
 	RenderManager::GetInstance().BindData();
 
@@ -137,12 +142,23 @@ int main()
 
 		main.Update();
 
-		
 		SM->SetRotation(glm::vec3{0.0f,0.0f,90 * std::fmod(glfwGetTime(),4)});
 		SM->GetMaterial()->GetShaderProgram()->SetParamater<float>("Test", (sin(glfwGetTime())));
 
-
 		RenderManager::GetInstance().Render();
+
+		// ImGui 窗口和按钮
+		if (window.IsImGuiInitialized())
+		{
+			ImGui::Begin("ImGui Demo Window");
+			ImGui::Text("This is a demo window with a button");
+			if (ImGui::Button("Click Me!"))
+			{
+				LOG(LOGTEMP, "ImGui button clicked!");
+				main.PointLight1.SetAmbient(glm::vec3(1,0,0));
+			}
+			ImGui::End();
+		}
 	});
 	window.Run();
 	

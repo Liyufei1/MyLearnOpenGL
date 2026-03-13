@@ -1,5 +1,6 @@
 #pragma once
 #include "Common/CommonFunLib.hpp"
+#include "Window.h"
 #include "glfw/glfw3.h"
 #include "Common/CommonFunLib.h"
 
@@ -33,6 +34,9 @@ namespace Input {
         }
         for (auto it : InputEventArray) {
             it(window);
+        }
+        if (glfwGetKey(window, GLFW_KEY_M) == GLFW_PRESS){
+            Window::GetInstance().SetCursorMode(!Window::GetInstance().GetCursorMode());
         }
     }
 

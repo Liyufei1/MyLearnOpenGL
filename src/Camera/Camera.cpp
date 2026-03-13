@@ -2,6 +2,7 @@
 
 #include "Common/CommonFunLib.h"
 #include "Common/CommonFunLib.hpp"
+#include "Window/Window.h"
 #include "glfw/glfw3.h"
 #include "glm/ext/vector_float3.hpp"
 #include "glm/ext/vector_float4.hpp"
@@ -49,6 +50,10 @@ void Camera::InputEvents(GLFWwindow * pWindows){
 }
 
 void Camera::MouseEvent(GLFWwindow* window,double xpos,double ypos){
+    if (Window::GetInstance().GetCursorMode()) {
+        bIsFirstMove = true;
+        return;
+    }
     // LOG(LOGTEMP, xpos,"::------::",ypos);
     if (bIsFirstMove) {
         LastX = xpos;

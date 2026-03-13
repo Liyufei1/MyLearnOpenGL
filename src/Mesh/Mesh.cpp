@@ -59,7 +59,10 @@ void StaticMesh::Draw(){
     // LOG(LOGTEMP);
    
     glBindVertexArray(mVAO);
+    glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
     glDrawElements(GL_TRIANGLES, mMeshBatch.indexs.size(), GL_UNSIGNED_INT, 0);
+    // glDrawElements(GL_LINE, mMeshBatch.indexs.size(), GL_UNSIGNED_INT, 0);
+    
 }
 
 
