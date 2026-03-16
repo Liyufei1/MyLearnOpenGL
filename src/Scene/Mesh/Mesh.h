@@ -7,8 +7,8 @@
 
 #include "glad/glad.h"
 
-#include "RenderService.h"
-#include "Shader/Material.h"
+#include "Render/RenderService.h"
+#include "Render/Shader/Material.h"
 
 
 

@@ -1,6 +1,6 @@
 #pragma once
-#include "Mesh/Mesh.h"
-#include "Shader/ShaderProgram.h"
+#include "Scene/Mesh/Mesh.h"
+#include "Render/Shader/ShaderProgram.h"
 #include "glm/ext/vector_float3.hpp"
 #include <memory>
 

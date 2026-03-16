@@ -1,9 +1,9 @@
 #include "RenderService.h"
 #include "Common/CommonFunLib.hpp"
-#include "Mesh.h"
-#include "Camera/Camera.h"
-#include "Light/Light.h"
-#include "Shader/ShaderProgram.h"
+#include "Scene/Mesh/Mesh.h"
+#include "Scene/Camera/Camera.h"
+#include "Scene/Light/Light.h"
+#include "Render/Shader/ShaderProgram.h"
 #include "glm/ext/vector_float3.hpp"
 #include "glm/glm.hpp"
 
@@ -60,12 +60,12 @@ void RenderService::ClearShaders() {
 }
 
 void RenderService::PreloadDefaultShaders() {
-    auto baseShader = GetOrCreateShader("src/Shader/BaseShader/BaseVertex.glsl", 
-                                         "src/Shader/BaseShader/BaseFragment.glsl");
+    auto baseShader = GetOrCreateShader("src/glsl/BaseShader/BaseVertex.glsl", 
+                                         "src/glsl/BaseShader/BaseFragment.glsl");
     RegisterShader("Base", baseShader);
 
-    auto phoneShader = GetOrCreateShader("src/Shader/PhoneShader/PhoneVertex.glsl",
-                                          "src/Shader/PhoneShader/PhoneFragment.glsl");
+    auto phoneShader = GetOrCreateShader("src/glsl/PhoneShader/PhoneVertex.glsl",
+                                          "src/glsl/PhoneShader/PhoneFragment.glsl");
     RegisterShader("Phone", phoneShader);
 }
 

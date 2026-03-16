@@ -1,5 +1,5 @@
 #include "ShaderProgram.h"
-#include "Mesh/RenderService.h"
+#include "Render/RenderService.h"
 #include <fstream>
 #include <string>
 #include "Common/CommonFunLib.h"
@@ -46,8 +46,8 @@ void ShaderBase::InitShader(GLuint& Shader, GLenum type, const char* SourcePath)
 }
 
 // 默认着色器路径
-static const char* DEFAULT_VERTEX_PATH = "src/Shader/BaseShader/BaseVertex.glsl";
-static const char* DEFAULT_FRAGMENT_PATH = "src/Shader/BaseShader/BaseFragment.glsl";
+static const char* DEFAULT_VERTEX_PATH = "src/glsl/BaseShader/BaseVertex.glsl";
+static const char* DEFAULT_FRAGMENT_PATH = "src/glsl/BaseShader/BaseFragment.glsl";
 
 std::shared_ptr<ShaderProgram> ShaderProgram::GetDefaultShaderProgram() {
     return RenderService::GetInstance().GetOrCreateShader(DEFAULT_VERTEX_PATH, DEFAULT_FRAGMENT_PATH);

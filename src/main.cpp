@@ -1,10 +1,10 @@
 #include "main.h"
 
 #include "Common/CommonFunLib.hpp"
-#include "Light/Light.h"
-#include "Mesh/RenderService.h"
-#include "Shader/Material.h"
-#include "Shader/ShaderProgram.h"
+#include "Scene/Light/Light.h"
+#include "Render/RenderService.h"
+#include "Render/Shader/Material.h"
+#include "Render/Shader/ShaderProgram.h"
 #include "glfw/glfw3.h"
 #include "glm/ext/vector_float3.hpp"
 #include <array>
@@ -12,8 +12,8 @@
 #include <cstdlib>
 #include <memory>
 #include <vector>
-#include "Mesh/MeshLib.h"
-#include "Camera/Camera.h"
+#include "Scene/Mesh/MeshLib.h"
+#include "Scene/Camera/Camera.h"
 #include "imgui/imgui.h"
 
 #include <random>
@@ -35,8 +35,8 @@ void Main::LoadUsedResources(){
 
 	//着色器程序（通过 RenderService 管理，自动缓存复用）
 	PhoneShaderPrograme = RenderService::GetInstance().GetOrCreateShader(
-		"src/Shader/PhoneShader/PhoneVertex.glsl",
-		"src/Shader/PhoneShader/PhoneFragment.glsl");
+		"src/glsl/PhoneShader/PhoneVertex.glsl",
+		"src/glsl/PhoneShader/PhoneFragment.glsl");
 	BaseShaderPrograme = ShaderProgram::GetDefaultShaderProgram();
 
 	//材质

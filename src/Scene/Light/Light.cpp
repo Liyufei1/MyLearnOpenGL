@@ -1,8 +1,8 @@
 #include "Light.h"
 #include "Common/CommonFunLib.hpp"
 #include <string>
-#include "Mesh/MeshLib.h"
-#include "Shader/Material.h"
+#include "Scene/Mesh/MeshLib.h"
+#include "Render/Shader/Material.h"
 
 
 

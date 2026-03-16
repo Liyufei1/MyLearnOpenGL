@@ -2,7 +2,7 @@
 #include "Common/CommonFunLib.h"
 #include "Common/CommonFunLib.hpp"
 #include "glm/gtc/matrix_transform.hpp"
-#include "Texture/Texture2D.h"
+#include "Render/Texture/Texture2D.h"
 #include <string>
 #include <vector>
 
@@ -59,9 +59,8 @@ void StaticMesh::Draw(){
     // LOG(LOGTEMP);
    
     glBindVertexArray(mVAO);
-    glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+    // glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
     glDrawElements(GL_TRIANGLES, mMeshBatch.indexs.size(), GL_UNSIGNED_INT, 0);
-    // glDrawElements(GL_LINE, mMeshBatch.indexs.size(), GL_UNSIGNED_INT, 0);
     
 }
 

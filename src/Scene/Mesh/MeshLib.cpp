@@ -1,6 +1,6 @@
 ﻿#include "MeshLib.h"
 #include "Common/CommonFunLib.hpp"
-#include "Texture/Texture2D.h"
+#include "Render/Texture/Texture2D.h"
 
 #include "assimp/Importer.hpp"
 #include "assimp/scene.h"

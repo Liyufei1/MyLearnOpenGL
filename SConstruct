@@ -17,7 +17,7 @@ env.Append(LIBS=['glfw3_mt','shell32','User32','Gdi32','assimp-vc143-mtd'])
 
 
 # # 搜集源文件（注意 glad.c 和 CommonFunLib.cpp 也需要加入）
-sources = Glob("build/*.cpp") + Glob("build/**/*.cpp")
+sources = Glob("build/*.cpp") + Glob("build/**/*.cpp") + Glob("build/**/**/*.cpp")
 sources += Glob("include/**/*.cpp") + Glob("include/**/*.c")
 
 

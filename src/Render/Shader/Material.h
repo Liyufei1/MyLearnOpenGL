@@ -1,6 +1,6 @@
 #pragma once
-#include "ShaderProgram.h"
-#include "Texture/Texture2D.h"
+#include "Render/Shader/ShaderProgram.h"
+#include "Render/Texture/Texture2D.h"
 #include "glm/ext/vector_float3.hpp"
 #include <memory>
 

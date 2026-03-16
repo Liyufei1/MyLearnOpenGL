@@ -1,13 +1,13 @@
 #pragma once
-#include "Light/Light.h"
-#include "Camera/Camera.h"
+#include "Scene/Light/Light.h"
+#include "Scene/Camera/Camera.h"
 #include "Common/CommonFunLib.h"
 #include "Common/CommonFunLib.hpp"
 #include "Common/Config.h"
 #include "Window/Window.h"
-#include "Mesh/Mesh.h"
-#include "Mesh/RenderService.h"
-#include "Texture/Texture2D.h"
+#include "Scene/Mesh/Mesh.h"
+#include "Render/RenderService.h"
+#include "Render/Texture/Texture2D.h"
 
 #include "glm/ext/matrix_transform.hpp"
 #include "glm/ext/vector_float3.hpp"
