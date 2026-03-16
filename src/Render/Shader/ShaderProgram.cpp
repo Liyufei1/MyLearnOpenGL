@@ -49,10 +49,6 @@ void ShaderBase::InitShader(GLuint& Shader, GLenum type, const char* SourcePath)
 static const char* DEFAULT_VERTEX_PATH = "src/glsl/BaseShader/BaseVertex.glsl";
 static const char* DEFAULT_FRAGMENT_PATH = "src/glsl/BaseShader/BaseFragment.glsl";
 
-std::shared_ptr<ShaderProgram> ShaderProgram::GetDefaultShaderProgram() {
-    return RenderService::GetInstance().GetOrCreateShader(DEFAULT_VERTEX_PATH, DEFAULT_FRAGMENT_PATH);
-}
-
 static int CurShaderProgram = 0;
 
 ShaderProgram::ShaderProgram(const ShaderBase& Shader) {

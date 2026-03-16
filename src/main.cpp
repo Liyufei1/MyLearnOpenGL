@@ -27,26 +27,34 @@ Main& Main::GetInstance(){
 
 void Main::LoadUsedResources(){
 
-	//加载的贴图
-	T_WoodBox = std::shared_ptr<Texture2D>{new Texture2D("E:/study/LearnOpenGL/Art/Texture/T_WoodBox.jpg")};
-	T_WoodBox2 = std::shared_ptr<Texture2D>{new Texture2D("E:/study/LearnOpenGL/Art/Texture/container2.png")};
-	T_WoodBox2_Spacular  = std::shared_ptr<Texture2D>{new Texture2D("E:/study/LearnOpenGL/Art/Texture/container2_specular.png")};
-	T_SmallFace = std::shared_ptr<Texture2D>{new Texture2D("E:/study/LearnOpenGL/Art/Texture/T_face.png")};
+	RenderService::GetInstance().PreloadDefaultShaders();
+	RenderService::GetInstance().GetOrCreateShader(
+		"backpack",
+		"src/glsl/backpack/Vertex.glsl",
+		"src/glsl/backpack/Fragment.glsl");
 
-	//着色器程序（通过 RenderService 管理，自动缓存复用）
-	PhoneShaderPrograme = RenderService::GetInstance().GetOrCreateShader(
-		"src/glsl/PhoneShader/PhoneVertex.glsl",
-		"src/glsl/PhoneShader/PhoneFragment.glsl");
-	BaseShaderPrograme = ShaderProgram::GetDefaultShaderProgram();
+	RenderService::GetInstance().GetOrCreateTexture("wood_box_diff", "Art/Texture/T_WoodBox.jpg");
+	RenderService::GetInstance().GetOrCreateTexture("smill_face_diff", "Art/Texture/T_face.png");
+	
+	RenderService::GetInstance().GetOrCreateTexture("container2_diff", "Art/Texture/container2.png");
+	RenderService::GetInstance().GetOrCreateTexture("container2_specular", "Art/Texture/container2_specular.png");
+
+	RenderService::GetInstance().GetOrCreateTexture("backpack_diffuse", "Art/SM/backpack/diffuse.jpg");
+	RenderService::GetInstance().GetOrCreateTexture("backpack_specular", "Art/SM/backpack/specular.jpg");
+	RenderService::GetInstance().GetOrCreateTexture("backpack_roughness", "Art/SM/backpack/roughness.jpg");
+	RenderService::GetInstance().GetOrCreateTexture("backpack_normal", "Art/SM/backpack/normal.png");
+	RenderService::GetInstance().GetOrCreateTexture("backpack_ao", "Art/SM/backpack/ao.jpg");
 
 	//材质
 	M_Base = Material::GetDefaultMaterial();
 	
-	M_Phone = std::make_shared<PhoneMaterial>();
-	M_Phone->SetShaderProgram(PhoneShaderPrograme);
-	M_Phone->SetDiffuseTexture(T_WoodBox2);
-	M_Phone->SetSpecularTexture(T_WoodBox2_Spacular);
-	M_Phone->SetShininess(8);
+	M_Phone = std::make_shared<Material>("Phone");
+	M_Phone->SetTexture("uMaterial.diffuse", RenderService::GetInstance().GetTexture("container2_diff"));
+	M_Phone->SetTexture("uMaterial.specular", RenderService::GetInstance().GetTexture("container2_specular"));
+	M_Phone->SetFloat("uMaterial.shininess", 8.0f);
+
+	M_back_pack = std::make_shared<Material>("backpack");
+	M_back_pack->SetTexture("uMaterial.diffuse", RenderService::GetInstance().GetTexture("backpack_diffuse"));
 }
 
 
@@ -126,7 +134,7 @@ int main()
 	SM3->SetScale(glm::vec3(2.5,2.5,2.5));
 
 	std::shared_ptr<StaticMesh> SM_model = ModelMesh();
-	// SM_model->SetMaterial(main.M_Phone);
+	SM_model->SetMaterial(main.M_back_pack);
 	// SM_model->SetScale(glm::vec3(1.0,1.0,2.5));
 
 
@@ -142,7 +150,7 @@ int main()
 		main.Update();
 
 		SM->SetRotation(glm::vec3{0.0f,0.0f,90 * std::fmod(glfwGetTime(),4)});
-		SM->GetMaterial()->GetShaderProgram()->SetParamater<float>("Test", (sin(glfwGetTime())));
+		SM->GetMaterial()->SetFloat("Test", static_cast<float>(sin(glfwGetTime())));
 
 		RenderService::GetInstance().Render();
 

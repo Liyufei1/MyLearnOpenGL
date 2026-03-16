@@ -30,15 +30,25 @@ void Texture2D::Init(){
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, mFilterMode);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, mFilterMode);
 
+
+    GLenum internalFormat;
+    GLenum format;
     switch (mChannels) {
-    default:
-    case 3:
-        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, mWidth, mHeight, 0, GL_RGB, GL_UNSIGNED_BYTE, mData);
+    case 1:
+        internalFormat = GL_R8;      // GPU内部存储格式：8位单通道
+        format = GL_RED;             // 输入数据格式：单通道
         break;
+    case 3:
+        internalFormat = GL_RGB8;
+        format = GL_RGB;
+        break;
+    default:
     case 4:
-        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, mWidth, mHeight, 0, GL_RGBA, GL_UNSIGNED_BYTE, mData);
+        internalFormat = GL_RGBA8;
+        format = GL_RGBA;
         break;
     }
+    glTexImage2D(GL_TEXTURE_2D, 0, internalFormat, mWidth, mHeight, 0, format, GL_UNSIGNED_BYTE, mData);
     glGenerateMipmap(GL_TEXTURE_2D);
     LOG(LOGTEMP,std::string("Texture2D::Init success " )+ " ID: " + std::to_string(mTextureID));
 }

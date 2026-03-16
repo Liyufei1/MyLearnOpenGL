@@ -25,11 +25,11 @@ void DirLight::SetInstensity(float pInstensity)
 
 PointLight::PointLight(){
     mMesh =  BoxMesh();
-    mMesh->SetMaterial(Material::CreateDefaultMaterial());
+    mMesh->SetMaterial(Material::GetDefaultMaterial());
     mMesh->SetLocation(GetLocation());
     mMesh->SetScale(glm::vec3(0.1f, 0.1f, 0.1f));
-    mMesh->GetMaterial()->SetDiffuseColor(GetDiffuse());
-    // mMesh->GetMaterial()->SetDiffuseColor(glm::vec3(1.0f, 0.0f, 1.0f));
+    mMesh->GetMaterial()->SetVec3("uMaterial.diffuse", GetDiffuse());
+    // mMesh->GetMaterial()->SetVec3("uMaterial.diffuse", glm::vec3(1.0f, 0.0f, 1.0f));
 }
 
 void PointLight::UpdateLight(std::shared_ptr<ShaderProgram> pShaderProgram){

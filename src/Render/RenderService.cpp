@@ -13,31 +13,19 @@ RenderService::RenderService() {
 
 // ==================== 着色器管理 ====================
 
-std::shared_ptr<ShaderProgram> RenderService::GetOrCreateShader(
-    const std::string& vertexPath,
-    const std::string& fragmentPath) {
-    
-    std::string key = MakeShaderKey(vertexPath, fragmentPath);
-    
-    auto it = mPathShaderCache.find(key);
-    if (it != mPathShaderCache.end()) {
-        return it->second;
+std::shared_ptr<ShaderProgram> RenderService::GetOrCreateShader(const std::string& name, const std::string& vertexPath, const std::string& fragmentPath) {
+    // 先检查名称缓存
+    auto nameIt = mNameShaderCache.find(name);
+    if (nameIt != mNameShaderCache.end()) {
+        return nameIt->second;
     }
 
-    auto shader = std::make_shared<ShaderProgram>(vertexPath.c_str(), fragmentPath.c_str());
-    mPathShaderCache[key] = shader;
-    
-    LOG(LOGTEMP, "RenderService: Created shader [" + key + "]");
-    return shader;
-}
-
-void RenderService::RegisterShader(const std::string& name, std::shared_ptr<ShaderProgram> shader) {
-    if (!shader) {
-        LOG(LOGERROR, "RenderService::RegisterShader: shader is null");
-        return;
-    }
+    // 创建着色器
+    auto shader = std::make_shared<ShaderProgram>(vertexPath.c_str(), fragmentPath.c_str());    
     mNameShaderCache[name] = shader;
+
     LOG(LOGTEMP, "RenderService: Registered shader [" + name + "]");
+    return shader;
 }
 
 std::shared_ptr<ShaderProgram> RenderService::GetShader(const std::string& name) {
@@ -54,24 +42,23 @@ bool RenderService::HasShader(const std::string& name) const {
 }
 
 void RenderService::ClearShaders() {
-    mPathShaderCache.clear();
     mNameShaderCache.clear();
     LOG(LOGTEMP, "RenderService: Cleared all shaders");
 }
 
 void RenderService::PreloadDefaultShaders() {
-    auto baseShader = GetOrCreateShader("src/glsl/BaseShader/BaseVertex.glsl", 
-                                         "src/glsl/BaseShader/BaseFragment.glsl");
-    RegisterShader("Base", baseShader);
+    auto baseShader = GetOrCreateShader(
+        "Base",
+        "src/glsl/BaseShader/BaseVertex.glsl",
+        "src/glsl/BaseShader/BaseFragment.glsl");
 
-    auto phoneShader = GetOrCreateShader("src/glsl/PhoneShader/PhoneVertex.glsl",
-                                          "src/glsl/PhoneShader/PhoneFragment.glsl");
-    RegisterShader("Phone", phoneShader);
+    auto phoneShader = GetOrCreateShader(
+        "Phone",
+        "src/glsl/PhoneShader/PhoneVertex.glsl",
+        "src/glsl/PhoneShader/PhoneFragment.glsl");
+
 }
 
-std::string RenderService::MakeShaderKey(const std::string& vertexPath, const std::string& fragmentPath) const {
-    return vertexPath + "|" + fragmentPath;
-}
 
 // ==================== 渲染管理 ====================
 
@@ -87,7 +74,7 @@ void RenderService::RenderByShaderGroups() {
     for (auto& mesh : mMeshes) {
         if (!mesh || !mesh->GetMaterial()) continue;
         
-        auto shader = mesh->GetMaterial()->GetShaderProgram().get();
+        auto shader = mesh->GetMaterial()->GetShaderProgram();
         if (shader) {
             shaderGroups[shader].push_back(mesh.get());
         }
@@ -105,7 +92,7 @@ void RenderService::RenderByShaderGroups() {
         UpdateLights(std::shared_ptr<ShaderProgram>(shader, [](ShaderProgram*){}), isLastShader);
 
         for (auto* mesh : meshes) {
-            mesh->GetMaterial()->Use();
+            mesh->GetMaterial()->Apply();
             shader->SetParamater<glm::mat4>("uModelMatrix", mesh->GetModelMatrix());
             mesh->Draw();
         }
@@ -157,4 +144,31 @@ void RenderService::RemoveMesh(std::shared_ptr<StaticMesh> mesh) {
 
 void RenderService::ClearMeshes() {
     mMeshes.clear();
+}
+
+std::shared_ptr<Texture2D> RenderService::GetOrCreateTexture(const std::string& name, const std::string& Path){
+        // 先检查名称缓存
+    auto nameIt = mTextureCache.find(name);
+    if (nameIt != mTextureCache.end()) {
+        return nameIt->second;
+    }
+
+    // 创建着色器
+    auto Texture = std::make_shared<Texture2D>(Path.c_str());    
+    mTextureCache[name] = Texture;
+
+    LOG(LOGTEMP, "RenderService: Registered Texture [" + name + "]");
+    return Texture;
+}
+std::shared_ptr<Texture2D> RenderService::GetTexture(const std::string& name){
+    auto it = mTextureCache.find(name);
+    if (it != mTextureCache.end()) {
+        return it->second;
+    }
+    LOG(LOGERROR, "RenderService::GetShader: shader not found [" + name + "]");
+    return nullptr;
+}
+
+void RenderService::ClearTextures(){
+    mTextureCache.clear();
 }

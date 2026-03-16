@@ -209,13 +209,13 @@ void processNode(aiNode *node, const aiScene *scene,std::shared_ptr<StaticMesh> 
 	{
 		aiMesh *mesh = scene->mMeshes[node->mMeshes[i]]; 
 		processMesh(mesh, scene,SM);         
-		LOG(LOGTEMP,"mesh====================",i)
+		// LOG(LOGTEMP,"mesh====================",i)
 	}
 	// 接下来对它的子节点重复这一过程
 	for(unsigned int i = 0; i < node->mNumChildren; i++)
 	{
 		processNode(node->mChildren[i], scene,SM);
-		LOG(LOGTEMP,"node====================",i)
+		// LOG(LOGTEMP,"node====================",i)
 
 	}
 }

@@ -34,9 +34,6 @@ public:
     void Use() const;
     int GetProgramID() const { return Program; }
 
-    // 获取默认着色器（通过 RenderService 管理）
-    static std::shared_ptr<ShaderProgram> GetDefaultShaderProgram();
-
     template<typename T>
     void SetParamater(const char* name, T value) const {
         GLuint location = glGetUniformLocation(Program, name);
