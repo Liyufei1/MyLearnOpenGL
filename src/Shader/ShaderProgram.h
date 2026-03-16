@@ -1,10 +1,32 @@
 #pragma once
 #include "Common/CommonFunLib.h"
 #include "glad/glad.h"
-#include "ShaderBase.h"
 #include "glm/fwd.hpp"
 #include "glm/gtc/type_ptr.hpp"
 #include <sstream>
+
+
+
+class ShaderBase{
+public:
+    ShaderBase() = delete;
+    ShaderBase(const char* vertexPath, const char* fragmentPath);
+    ~ShaderBase();
+    bool IsInit() const { return bIsInit; }
+
+    GLuint GetVertexShader() const { return VertexShader; }
+
+    GLuint GetFragmentShader()const { return FragmentShader; }
+
+private:
+    void InitShader(GLuint& Shader,GLenum type,const char* SourcePath);
+
+    GLuint VertexShader = 0;
+    GLuint FragmentShader = 0;
+    bool bIsInit = false;
+    std::string TempSourceBuffer{};
+};
+
 
 class ShaderProgram{
 public:
