@@ -6,7 +6,7 @@
 #include "Common/Config.h"
 #include "Window/Window.h"
 #include "Mesh/Mesh.h"
-#include "Mesh/RenderManager.h"
+#include "Mesh/RenderService.h"
 #include "Texture/Texture2D.h"
 
 #include "glm/ext/matrix_transform.hpp"

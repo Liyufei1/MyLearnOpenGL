@@ -7,7 +7,7 @@
 
 #include "glad/glad.h"
 
-#include "RenderManager.h"
+#include "RenderService.h"
 #include "Shader/Material.h"
 
 
@@ -44,14 +44,14 @@ public:
 
 class StaticMesh : public std::enable_shared_from_this<StaticMesh>
 {
-    friend class RenderManager;
+    friend class RenderService;
     static const int MaxTextureCount = 16;
 public:
     ~StaticMesh();
     static std::shared_ptr<StaticMesh> CreateMesh(){
         std::shared_ptr<StaticMesh> mesh(new StaticMesh);
         mesh->SetMaterial(Material::GetDefaultMaterial());
-        RenderManager::GetInstance().AddMesh(mesh);
+        RenderService::GetInstance().AddMesh(mesh);
         return mesh;
     }
     

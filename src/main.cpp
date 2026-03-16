@@ -2,7 +2,7 @@
 
 #include "Common/CommonFunLib.hpp"
 #include "Light/Light.h"
-#include "Mesh/RenderManager.h"
+#include "Mesh/RenderService.h"
 #include "Shader/Material.h"
 #include "Shader/ShaderProgram.h"
 #include "glfw/glfw3.h"
@@ -33,18 +33,17 @@ void Main::LoadUsedResources(){
 	T_WoodBox2_Spacular  = std::shared_ptr<Texture2D>{new Texture2D("E:/study/LearnOpenGL/Art/Texture/container2_specular.png")};
 	T_SmallFace = std::shared_ptr<Texture2D>{new Texture2D("E:/study/LearnOpenGL/Art/Texture/T_face.png")};
 
-	//着色器程序
-	PhoneShaderPrograme = std::make_shared<ShaderProgram>("src/Shader/PhoneShader/PhoneVertex.glsl","src/Shader/PhoneShader/PhoneFragment.glsl");
+	//着色器程序（通过 RenderService 管理，自动缓存复用）
+	PhoneShaderPrograme = RenderService::GetInstance().GetOrCreateShader(
+		"src/Shader/PhoneShader/PhoneVertex.glsl",
+		"src/Shader/PhoneShader/PhoneFragment.glsl");
 	BaseShaderPrograme = ShaderProgram::GetDefaultShaderProgram();
-	RenderManager::GetInstance().AddShaderProgram(BaseShaderPrograme);
-	RenderManager::GetInstance().AddShaderProgram(PhoneShaderPrograme);
-
 
 	//材质
 	M_Base = Material::GetDefaultMaterial();
 	
 	M_Phone = std::make_shared<PhoneMaterial>();
-	M_Phone->SetShaderPrograrm(PhoneShaderPrograme);
+	M_Phone->SetShaderProgram(PhoneShaderPrograme);
 	M_Phone->SetDiffuseTexture(T_WoodBox2);
 	M_Phone->SetSpecularTexture(T_WoodBox2_Spacular);
 	M_Phone->SetShininess(8);
@@ -56,18 +55,18 @@ void Main::InitMesh(){
 }
 
 void Main::InitLight(){
-	RenderManager::GetInstance().AddLight(&L_DirLight);
+	RenderService::GetInstance().AddLight(&L_DirLight);
 	L_DirLight.SetDirection(glm::vec3(0.0f, 0.0f, -1.0f));
 	L_DirLight.SetInstensity(0.1f);
 	
 	
-	RenderManager::GetInstance().AddLight(&PointLight1);
+	RenderService::GetInstance().AddLight(&PointLight1);
 	PointLight1.SetIndex(0);
 	PointLight1.SetLocation(glm::vec3(2.0 * sin(0), 2.0*cos(0), 1.0f));
 	// PointLight1.SetLinear(0.09);
 	// PointLight1.SetQuadratic(0.0032);
 
-	RenderManager::GetInstance().AddLight(&PointLight2);
+	RenderService::GetInstance().AddLight(&PointLight2);
 	PointLight2.SetIndex(1);
 	PointLight2.SetLocation(glm::vec3(2.0 * sin(0), 2.0*cos(0), 1.0f));
 	// PointLight2.SetLinear(0.09);
@@ -131,7 +130,7 @@ int main()
 	// SM_model->SetScale(glm::vec3(1.0,1.0,2.5));
 
 
-	RenderManager::GetInstance().BindData();
+	RenderService::GetInstance().BindData();
 
 
 	
@@ -145,7 +144,7 @@ int main()
 		SM->SetRotation(glm::vec3{0.0f,0.0f,90 * std::fmod(glfwGetTime(),4)});
 		SM->GetMaterial()->GetShaderProgram()->SetParamater<float>("Test", (sin(glfwGetTime())));
 
-		RenderManager::GetInstance().Render();
+		RenderService::GetInstance().Render();
 
 		// ImGui 窗口和按钮
 		if (window.IsImGuiInitialized())
